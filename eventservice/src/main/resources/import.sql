@@ -1,0 +1,1 @@
+-- Hibernate support src/main
