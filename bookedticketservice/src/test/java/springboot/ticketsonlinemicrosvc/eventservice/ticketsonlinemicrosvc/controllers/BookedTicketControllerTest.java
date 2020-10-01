@@ -11,9 +11,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.controllers.BookedTicketController;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
-import springboot.ticketsonlinemicrosvc.common.entities.BookedTicket;
-import springboot.ticketsonlinemicrosvc.common.entities.BookedTickets;
-import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.BookedTicket;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.BookedTickets;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Ticket;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +41,7 @@ public class BookedTicketControllerTest
   public void testFindOneById() throws Exception
   {
     Ticket ticket = new Ticket( 22L, 1, null, 234);
-    BookedTicket bookedTicket = new BookedTicket( 22L, ticket);
+    BookedTicket bookedTicket = new BookedTicket( 22L, 22L);
 
     when( mockBookedTicketService.findById( 22L)).thenReturn( Optional.of( bookedTicket));
 
@@ -59,8 +59,8 @@ public class BookedTicketControllerTest
     Ticket ticket22 = new Ticket( 22L, 2, null, 222);
     Ticket ticket33 = new Ticket( 33L, 3, null, 333);
 
-    BookedTicket bookedTicket22 = new BookedTicket( 22L, ticket22);
-    BookedTicket bookedTicket33 = new BookedTicket( 33L, ticket33);
+    BookedTicket bookedTicket22 = new BookedTicket( 22L, 22L);
+    BookedTicket bookedTicket33 = new BookedTicket( 33L, 33L);
 
     List<BookedTicket> allBookedTickets = List.of( bookedTicket22, bookedTicket33);
 
@@ -81,8 +81,8 @@ public class BookedTicketControllerTest
   {
     Ticket ticket22 = new Ticket( 22L, 2, null, 222);
 
-    BookedTicket bookedTicketEmptyId = new BookedTicket( 0L, ticket22);
-    BookedTicket bookedTicket1 = new BookedTicket( 1L, ticket22);
+    BookedTicket bookedTicketEmptyId = new BookedTicket( 0L, 22L);
+    BookedTicket bookedTicket1 = new BookedTicket( 1L, 22L);
 
     when( mockBookedTicketService.save( bookedTicketEmptyId)).thenReturn( bookedTicket1);
 
@@ -98,8 +98,8 @@ public class BookedTicketControllerTest
   {
     Ticket ticket22 = new Ticket( 22L, 2, null, 222);
 
-    BookedTicket bookedTicketEmptyId = new BookedTicket( 0L, ticket22);
-    BookedTicket bookedTicket1 = new BookedTicket( 1L, ticket22);
+    BookedTicket bookedTicketEmptyId = new BookedTicket( 0L, 22L);
+    BookedTicket bookedTicket1 = new BookedTicket( 1L, 22L);
 
     when( mockBookedTicketService.save( bookedTicketEmptyId)).thenReturn( bookedTicket1);
 
@@ -109,5 +109,4 @@ public class BookedTicketControllerTest
            .andExpect( status().isOk())
            .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( bookedTicket1, BookedTicket.class));
   }
-
 }

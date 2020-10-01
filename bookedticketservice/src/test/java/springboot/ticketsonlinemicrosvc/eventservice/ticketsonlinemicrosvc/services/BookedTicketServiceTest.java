@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
-import springboot.ticketsonlinemicrosvc.common.entities.BookedTicket;
-import springboot.ticketsonlinemicrosvc.common.entities.Event;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
-import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.BookedTicket;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlace;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Ticket;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
@@ -70,11 +70,11 @@ public class BookedTicketServiceTest extends TestBase
 //    Ticket ticketToSave = new Ticket( 0L, 55, eventSaved, 55);
 //
 //    Ticket ticketSaved = ticketService.save( ticketToSave);
-    EventPlace eventPlaceToSave = new EventPlace( 111L, "Name_55", 110);
-    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceToSave);
-    Ticket ticketToSave = new Ticket( 0L, 55, eventToSave, 55);
+//    EventPlace eventPlaceToSave = new EventPlace( 111L, "Name_55", 110);
+//    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), 111L); // pt++ : bcause of microservice
+//    Ticket ticketToSave = new Ticket( 0L, 55, 55L, 55);
 
-    BookedTicket bookedTicketToBeSaved = new BookedTicket( 0L, ticketToSave);
+    BookedTicket bookedTicketToBeSaved = new BookedTicket( 0L, 55L);
 
     BookedTicket bookedTicketSaved = bookedTicketService.save( bookedTicketToBeSaved);
 
@@ -86,9 +86,9 @@ public class BookedTicketServiceTest extends TestBase
   @Test
   public void testFindByBookedTicketEvent() throws ParseException
   {
-    EventPlace eventPlaceSearched = new EventPlace( 111L, "Name_55", 110); // (Long iniID, String iniName, Integer iniNoOfSeats)
+//    EventPlace eventPlaceSearched = new EventPlace( 111L, "Name_55", 110); // (Long iniID, String iniName, Integer iniNoOfSeats) pt++ : microservices
 
-    Event eventSearchCriteria = new Event( 22L, "EventName_22", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceSearched);
+    Event eventSearchCriteria = new Event( 22L, "EventName_22", stringToDate( "2020-09-03 11:32:41.00"), 22L);
 
     List<BookedTicket> bookedTicketsForEvent = bookedTicketService.findByBookedTicketEvent( eventSearchCriteria);
 

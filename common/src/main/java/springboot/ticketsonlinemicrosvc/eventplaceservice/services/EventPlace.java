@@ -1,6 +1,4 @@
-package springboot.ticketsonlinemicrosvc.common.entities;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package springboot.ticketsonlinemicrosvc.eventplaceservice.services;
 
 import javax.persistence.*;
 import java.util.Objects;

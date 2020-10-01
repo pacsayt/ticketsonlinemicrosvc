@@ -2,8 +2,8 @@ package springboot.ticketsonlinemicrosvc.ticketservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springboot.ticketsonlinemicrosvc.common.entities.Event;
-import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Ticket;
 import springboot.ticketsonlinemicrosvc.ticketservice.repositories.TicketRepository;
 
 import javax.persistence.EntityManager;
@@ -57,15 +57,9 @@ public class TicketService
     return ticketRepository.findById( iD);
   }
 
-  public List<Ticket> findByEvent(Event event)
+  public List<Ticket> findByEventId( Long eventId)
   {
-    return ticketRepository.findByEvent( event);
-  }
-
-  // pt++ : not sure if this is useful as event name is with date unique only
-  public List<Ticket> findByEventName( String name)
-  {
-    return ticketRepository.findByEventName( name);
+    return ticketRepository.findByEventId( eventId);
   }
 
   public void delete( Ticket ticketToBeDeleted)

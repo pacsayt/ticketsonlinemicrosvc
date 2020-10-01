@@ -9,8 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import springboot.ticketsonlinemicrosvc.common.entities.Event;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlace;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
@@ -120,7 +120,7 @@ public class EventServiceTest extends TestBase
 //    eventPlaceToSave = new EventPlace( 111L, "Name_1", 10); // (Long iniID, String iniName, Integer iniNoOfSeats)
 //    eventPlaceSaved = eventPlaceService.save( eventPlaceToSave);
 
-    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceSaved);
+    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), 55L);
 
     Event savedEvent = eventService.save( eventToSave);
 
@@ -132,9 +132,9 @@ public class EventServiceTest extends TestBase
   {
     try
     {
-      EventPlace eventPlaceToSave = new EventPlace( 0L, "Name_1", 10); // (Long iniID, String iniName, Integer iniNoOfSeats)
+//      EventPlace eventPlaceToSave = new EventPlace( 0L, "Name_1", 10); // pt++ : because of microservice approach (single table / microservice)
 
-      Event eventToBeDeleted = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceToSave);
+      Event eventToBeDeleted = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), 55L);
 
       eventService.delete(eventToBeDeleted);
     }

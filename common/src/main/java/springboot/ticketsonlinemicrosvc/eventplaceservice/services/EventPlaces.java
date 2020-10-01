@@ -1,4 +1,4 @@
-package springboot.ticketsonlinemicrosvc.common.entities;
+package springboot.ticketsonlinemicrosvc.eventplaceservice.services;
 
 import java.util.List;
 

@@ -10,12 +10,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import springboot.ticketsonlinemicrosvc.common.entities.Event;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
-import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
-import springboot.ticketsonlinemicrosvc.common.entities.Tickets;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlace;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Ticket;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Tickets;
 import springboot.ticketsonline.services.TestBase;
-import springboot.ticketsonlinemicrosvc.ticketservice.controllers.TicketController;
 import springboot.ticketsonlinemicrosvc.ticketservice.services.TicketService;
 
 import java.util.List;
@@ -45,9 +44,9 @@ public class TicketControllerTest extends TestBase
   @Test
   public void testFindOneById() throws Exception
   {
-    EventPlace eventPlaceReturnedByService =  new EventPlace( 111L, "Name_1", 10);
-    Event eventReturnedByService = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceReturnedByService);
-    Ticket ticketReturnedByService = new Ticket( 11L, 1, eventReturnedByService, 111);
+//    EventPlace eventPlaceReturnedByService =  new EventPlace( 111L, "Name_1", 10);
+//    Event eventReturnedByService = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceReturnedByService);
+    Ticket ticketReturnedByService = new Ticket( 11L, 1, 11L, 111);
 
     when( mockTicketService.findById( 11L)).thenReturn( Optional.of( ticketReturnedByService));
 

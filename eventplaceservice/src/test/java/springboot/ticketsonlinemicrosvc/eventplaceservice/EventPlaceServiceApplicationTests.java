@@ -1,4 +1,4 @@
-package springboot.ticketsonlinemicrosvc.common;
+package springboot.ticketsonlinemicrosvc.eventplaceservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

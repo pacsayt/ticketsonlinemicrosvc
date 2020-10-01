@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Ticket;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -43,14 +43,6 @@ public class TicketServiceTest
   }
 
   @Test
-  public void testFindByEventName()
-  {
-    List<Ticket> listTicket = ticketService.findByEventName( "EventName_11");
-
-    assertTrue( listTicket.size() == 4);
-  }
-
-  @Test
   public void testDeleteExistingTicket()
   {
     Long ticketsCountBefore = ticketService.count();
@@ -69,8 +61,8 @@ public class TicketServiceTest
   public void testEntityManagerAvailable() // pt++ :
   {
     // pt++ : there is such thing like :
-//    EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
-//    EntityManager entitymanager = emfactory.createEntityManager();
+// pt++ : EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
+// pt++ : EntityManager entitymanager = emfactory.createEntityManager();
 
     EntityManager entityManager = ticketService.getEntityManager();
     Query query = entityManager.createQuery( "Select t from Ticket t");

@@ -1,10 +1,13 @@
-package springboot.ticketsonlinemicrosvc.common;
+package springboot.ticketsonlinemicrosvc.eventplaceservice;
 
+import brave.sampler.Sampler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Spring Boot With H2 Database
@@ -20,8 +23,8 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
  *                associated with a Session.
  *   detached −  the Hibernate Session is closed
  *
- *   Lots of Session's methods is listed :
- *   https://www.tutorialspoint.com/hibernate/hibernate_sessions.htm
+ * Lots of Session's methods is listed :
+ * https://www.tutorialspoint.com/hibernate/hibernate_sessions.htm
  *
  * Session session = factory.openSession();
  * Transaction tx = null;
@@ -39,7 +42,7 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
  *
  */
 @SpringBootApplication
-@EnableEurekaClient
+@EnableEurekaServer // pt++ : @EnableEurekaClient ???
 @EnableHystrixDashboard
 @EnableCircuitBreaker
 public class EventPlaceServiceApplication
@@ -47,5 +50,10 @@ public class EventPlaceServiceApplication
 	public static void main(String[] args)
 	{
 		SpringApplication.run( EventPlaceServiceApplication.class, args);
+	}
+
+	@Bean
+	public Sampler getSampler() { // pt++ : a loggolas kozponti helyen (Sleuth ? Zipkin) valo megjelenitesehez kell
+		return Sampler.ALWAYS_SAMPLE; // pt++ : https://cloud.spring.io/spring-cloud-sleuth/2.0.x/multi/multi__sampling.html
 	}
 }

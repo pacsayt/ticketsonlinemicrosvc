@@ -3,10 +3,11 @@ package springboot.ticketsonlinemicrosvc.bookedticketservice.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.repositories.BookedTicketRepository;
-import springboot.ticketsonlinemicrosvc.common.entities.BookedTicket;
-import springboot.ticketsonlinemicrosvc.common.entities.Event;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.BookedTicket;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,13 +51,13 @@ public class BookedTicketService
 
   public List<BookedTicket> findByBookedTicketEvent( Event event)
   {
-    return bookedTicketRepository.findByBookedTicketEvent( event);
+    return Collections.emptyList(); // bookedTicketRepository.findByBookedTicketEvent( event);
   }
 
-  public Integer findAvailableTickets( String name, Timestamp date) // pt++ : some useful functionality to be implemented here
+  public Integer findAvailableTickets( String name, Timestamp date) // pt++ : must be updated because of microservices
   {
     Integer noOfFreSeatsForTheEvent = 0;
-
+/*
     Optional<Event> optionalEventOnADay = Optional.empty(); // eventRepository.findByNameAndDate( name, date); pt++ : must call event microservice from a higher level
 
     if ( optionalEventOnADay.isPresent() )
@@ -67,7 +68,7 @@ public class BookedTicketService
 
       noOfFreSeatsForTheEvent = matchingEvent.getEventPlace().getNoOfSeats() - bookedTicketsForTheEvent.size();
     }
-
+*/
     return noOfFreSeatsForTheEvent;
   }
 

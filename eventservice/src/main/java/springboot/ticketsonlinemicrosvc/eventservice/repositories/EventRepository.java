@@ -3,7 +3,7 @@ package springboot.ticketsonlinemicrosvc.eventservice.repositories;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import springboot.ticketsonlinemicrosvc.common.entities.Event;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
 
 import java.sql.Timestamp;
 // import java.util.Date; pt++ : the database creates Timestamp (that inherits from Date)

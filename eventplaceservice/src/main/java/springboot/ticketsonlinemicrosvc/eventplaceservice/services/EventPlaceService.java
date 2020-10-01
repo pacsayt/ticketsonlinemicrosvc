@@ -1,10 +1,10 @@
-package springboot.ticketsonlinemicrosvc.common.entities;
+package springboot.ticketsonlinemicrosvc.eventplaceservice.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springboot.ticketsonlinemicrosvc.common.repositories.EventPlaceRepository;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.repositories.EventPlaceRepository;
 
 import java.util.List;
 import java.util.Optional;

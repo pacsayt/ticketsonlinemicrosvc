@@ -1,4 +1,4 @@
-package springboot.ticketsonlinemicrosvc.common.configuration;
+package springboot.ticketsonlinemicrosvc.eventplaceservice.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

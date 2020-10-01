@@ -1,8 +1,8 @@
 package springboot.ticketsonlinemicrosvc.ticketservice.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import springboot.ticketsonlinemicrosvc.common.entities.Event;
-import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Ticket;
 
 import java.util.List;
 
@@ -22,9 +22,11 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>
 
   List<Ticket> findByTicketPriceBetween( Integer minPrice, Integer maxPrice);
 
-  List<Ticket> findByEventAndTicketPrice( Event event, Integer ticketPrice); // pt++ : referenced object in query param
+  // pt++ : referenced object in query param : must be done on contoller level as this microservece has the ticket table ONLY
+  //  List<Ticket> findByEventAndTicketPrice( Event event, Integer ticketPrice); // pt++ : referenced object in query param
 
-  List<Ticket> findByEvent( Event event);
+  List<Ticket> findByEventId( Long eventId);
 
-  List<Ticket> findByEventName( String name); // pt++ : referenced object in query param
+  // pt++ : referenced object in query param : must be done on contoller level as this microservece has the ticket table ONLY
+  // List<Ticket> findByEventName( String name);
 }

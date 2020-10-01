@@ -1,4 +1,4 @@
-package springboot.ticketsonlinemicrosvc.common.entities;
+package springboot.ticketsonlinemicrosvc.eventplaceservice.services;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,28 +12,28 @@ public class BookedTicket
   @Column(name = "bookedticket_id") // pt++ : just to show it ...
   private Long iD;
 
-  @OneToOne( targetEntity = Ticket.class) // pt++ : fetch = FetchType.EAGER - default value
-//  @Column(name = "booked_ticket")
-  private Ticket bookedTicket;
+  // pt++ : fetch = FetchType.EAGER - default value
+  @Column(name = "ticket_id")
+  private Long ticketId;
 
   public BookedTicket()
   {
   }
 
-  public BookedTicket( Long iniId, Ticket iniBookedTicket)
+  public BookedTicket( Long iniId, Long iniTicketId)
   {
     iD = iniId;
-    bookedTicket = iniBookedTicket;
+    ticketId = iniTicketId;
   }
 
-  public Ticket getBookedTicket()
+  public Long getTicketId()
   {
-    return bookedTicket;
+    return ticketId;
   }
 
-  public void setBookedTickets(Ticket iniBookedTicket)
+  public void seTicketId(Long iniTicketId)
   {
-    bookedTicket = iniBookedTicket;
+    ticketId = iniTicketId;
   }
 
   public Long getiD()
@@ -59,12 +59,12 @@ public class BookedTicket
     }
     BookedTicket that = (BookedTicket) o;
     return Objects.equals(iD, that.iD) &&
-            Objects.equals(bookedTicket, that.bookedTicket);
+            Objects.equals(ticketId, that.ticketId);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(iD, bookedTicket);
+    return Objects.hash(iD, ticketId);
   }
 }

@@ -1,4 +1,4 @@
-package springboot.ticketsonlinemicrosvc.common.entities;
+package springboot.ticketsonlinemicrosvc.eventplaceservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,21 +33,20 @@ public class Event
   @Column( name="date")
   private Timestamp date;
 
-  @ManyToOne
-//  @JoinColumn( name="event_place_id", nullable=false)
-  private EventPlace eventPlace;
+  @Column( name="event_place_id")
+  private Long eventPlaceId;
 
   public Event()
   {
   }
 
   @Autowired
-  public Event(Long iniID, String iniName, Timestamp iniDate, EventPlace iniEventPlace)
+  public Event(Long iniID, String iniName, Timestamp iniDate, Long iniEventPlaceId)
   {
     iD = iniID;
     name = iniName;
     date = iniDate;
-    eventPlace = iniEventPlace;
+    eventPlaceId = iniEventPlaceId;
   }
 
 /*
@@ -84,14 +83,14 @@ public class Event
     date = iniDate;
   }
 
-  public EventPlace getEventPlace()
+  public Long getEventPlaceId()
   {
-    return eventPlace;
+    return eventPlaceId;
   }
 
-  public void setEventPlace(EventPlace iniEventPlace)
+  public void setEventPlaceId(Long iniEventPlaceId)
   {
-    eventPlace = iniEventPlace;
+    eventPlaceId = iniEventPlaceId;
   }
 
   @Override
@@ -110,14 +109,14 @@ public class Event
     Event event = (Event) o;
 
     return Objects.equals(iD, event.iD) &&
-            Objects.equals(name, event.name) &&
-            Objects.equals(date, event.date) &&
-            Objects.equals(eventPlace, event.eventPlace);
+           Objects.equals(name, event.name) &&
+           Objects.equals(date, event.date) &&
+           Objects.equals(eventPlaceId, event.eventPlaceId);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(iD, name, date, eventPlace);
+    return Objects.hash(iD, name, date, eventPlaceId);
   }
 }

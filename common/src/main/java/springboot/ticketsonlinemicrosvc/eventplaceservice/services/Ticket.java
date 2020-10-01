@@ -1,4 +1,4 @@
-package springboot.ticketsonlinemicrosvc.common.entities;
+package springboot.ticketsonlinemicrosvc.eventplaceservice.services;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -15,9 +15,8 @@ public class Ticket
   @Column( name = "seat_no", precision = 255, scale = 0) // pt++ : just to show it ...
   private Integer seatNo;
 
-  @ManyToOne
-  @JoinColumn( name="event_id", nullable=false)
-  private Event event;
+  @Column( name="event_id", nullable=false)
+  private Long eventId;
 
   @Column( name="ticket_price")
   private Integer ticketPrice;
@@ -26,11 +25,11 @@ public class Ticket
   {
   }
 
-  public Ticket(Long iniId, Integer iniSeatNo, Event iniEvent, Integer iniTicketPrice)
+  public Ticket(Long iniId, Integer iniSeatNo, Long iniEventId, Integer iniTicketPrice)
   {
     iD = iniId;
     seatNo = iniSeatNo;
-    event = iniEvent;
+    eventId = iniEventId;
     ticketPrice = iniTicketPrice;
   }
 
@@ -54,14 +53,14 @@ public class Ticket
     seatNo = iniSeatNo;
   }
 
-  public Event getEvent()
+  public Long getEventId()
   {
-    return event;
+    return eventId;
   }
 
-  public void setEvent(Event iniEvent)
+  public void setEventId(Long iniEventId)
   {
-    event = iniEvent;
+    eventId = iniEventId;
   }
 
   public Integer getTicketPrice()
@@ -91,13 +90,13 @@ public class Ticket
 
     return Objects.equals(iD, ticket.iD) &&
             Objects.equals(seatNo, ticket.seatNo) &&
-            Objects.equals(event, ticket.event) &&
+            Objects.equals(eventId, ticket.eventId) &&
             Objects.equals(ticketPrice, ticket.ticketPrice);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(iD, seatNo, event, ticketPrice);
+    return Objects.hash(iD, seatNo, eventId, ticketPrice);
   }
 }

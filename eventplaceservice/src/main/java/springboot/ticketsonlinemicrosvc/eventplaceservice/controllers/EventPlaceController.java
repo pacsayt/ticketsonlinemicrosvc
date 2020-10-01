@@ -1,13 +1,13 @@
-package springboot.ticketsonlinemicrosvc.common.controllers;
+package springboot.ticketsonlinemicrosvc.eventplaceservice.controllers;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlaces;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlaceService;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlace;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlaces;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlaceService;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -72,10 +72,16 @@ public class EventPlaceController
   }
 
   @PutMapping() // pt++ : PUT - update
+  @HystrixCommand(fallbackMethod = "putFallback")
   public ResponseEntity<Optional<EventPlace>> put(@RequestBody EventPlace eventPlace)
   {
     EventPlace eventPlaceAfterSave = eventPlaceService.save( eventPlace);
 
     return ResponseEntity.ok( Optional.of( eventPlaceAfterSave));
+  }
+
+  public ResponseEntity<Object> putFallback( @RequestBody EventPlace eventPlace)
+  {
+    return ResponseEntity.status( HttpStatus.INTERNAL_SERVER_ERROR).build();
   }
 }

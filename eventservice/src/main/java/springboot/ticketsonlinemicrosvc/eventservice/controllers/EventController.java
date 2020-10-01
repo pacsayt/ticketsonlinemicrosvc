@@ -5,9 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springboot.ticketsonlinemicrosvc.common.entities.Events;
-import springboot.ticketsonlinemicrosvc.common.entities.Event;
-import springboot.ticketsonlinemicrosvc.common.entities.Events;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Events;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
 import springboot.ticketsonlinemicrosvc.eventservice.services.EventService;
 
 import java.util.Optional;

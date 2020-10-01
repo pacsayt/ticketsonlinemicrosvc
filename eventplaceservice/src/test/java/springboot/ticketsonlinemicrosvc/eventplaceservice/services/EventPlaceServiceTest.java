@@ -1,12 +1,12 @@
-package springboot.ticketsonlinemicrosvc.common;
+package springboot.ticketsonlinemicrosvc.eventplaceservice;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlaceService;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlace;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlaceService;
 
 
 import javax.transaction.Transactional;
