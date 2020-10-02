@@ -42,7 +42,7 @@ import org.springframework.context.annotation.Bean;
  *
  */
 @SpringBootApplication
-@EnableEurekaServer // pt++ : @EnableEurekaClient ???
+@EnableEurekaClient // pt++ : @EnableEurekaServer - must be a separate app, as the server cannot offer services
 @EnableHystrixDashboard
 @EnableCircuitBreaker
 public class EventPlaceServiceApplication

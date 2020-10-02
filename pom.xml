@@ -20,10 +20,11 @@
   <artifactId>root</artifactId>
   <packaging>pom</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>root</name>
+  <name>Root</name>
   <description>Root</description>
 
   <modules>
+    <module>eurekaserverapp</module>
     <module>common</module>
     <module>eventplaceservice</module>
     <module>eventservice</module>
