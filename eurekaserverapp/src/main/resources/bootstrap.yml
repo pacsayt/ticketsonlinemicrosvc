@@ -1,6 +1,18 @@
+#server:
+#  port:8888
+
 spring:
   application:
-    name: eureka
+    name:eurekaserverapp
+  profiles:
+    active: composite
   cloud:
     config:
-      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+      server:
+        git:
+          uri: /home/tamas/projektek/TicketsOnline/ticketsonlinecfg
+          cloneOnStart: true
+
+management:
+  security:
+    enabled:false
