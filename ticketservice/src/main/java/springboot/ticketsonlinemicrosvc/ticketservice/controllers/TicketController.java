@@ -3,8 +3,8 @@ package springboot.ticketsonlinemicrosvc.ticketservice.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
-import springboot.ticketsonlinemicrosvc.common.entities.Tickets;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Tickets;
 import springboot.ticketsonlinemicrosvc.ticketservice.services.TicketService;
 
 import java.util.Optional;

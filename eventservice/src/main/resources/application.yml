@@ -19,14 +19,16 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:eventservicedb;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
     driverClassName: org.h2.Driver
     username: sa
     password: password
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
     show-sql: true
     hibernate:
+      ddl-auto: create-drop
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
   h2:
     console:

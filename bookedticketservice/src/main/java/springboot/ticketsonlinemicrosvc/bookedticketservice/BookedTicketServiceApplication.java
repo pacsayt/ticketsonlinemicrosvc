@@ -36,11 +36,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-public class TicketsOnlineApplication
+public class BookedTicketServiceApplication
 {
 	public static void main(String[] args)
 	{
-		SpringApplication.run(TicketsOnlineApplication.class, args);
+		SpringApplication.run(BookedTicketServiceApplication.class, args);
 
 		while (true){}
 	}

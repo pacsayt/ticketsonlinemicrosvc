@@ -1,7 +1,7 @@
 package springboot.ticketsonlinemicrosvc.ticketservice.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
 
 import java.util.List;
 

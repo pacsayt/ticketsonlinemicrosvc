@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
-import springboot.ticketsonlinemicrosvc.common.entities.BookedTicket;
-import springboot.ticketsonlinemicrosvc.common.entities.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicket;
+import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;

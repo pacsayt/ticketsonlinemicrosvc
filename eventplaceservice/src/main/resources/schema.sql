@@ -1,6 +1,7 @@
+-- Executed, if present see : hibernate: ddl-auto: none https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
 DROP TABLE IF EXISTS event_place;
 
-DROP SEQUENCE drop sequence IF EXISTS if exists hibernate_sequence;
+DROP SEQUENCE IF EXISTS hibernate_sequence;
 CREATE SEQUENCE hibernate_sequence START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE event_place

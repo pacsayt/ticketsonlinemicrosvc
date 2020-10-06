@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
-import springboot.ticketsonlinemicrosvc.common.entities.BookedTicket;
-import springboot.ticketsonlinemicrosvc.common.entities.BookedTickets;
+import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicket;
+import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTickets;
 
 import java.util.Optional;
 

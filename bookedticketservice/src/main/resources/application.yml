@@ -1,5 +1,5 @@
 server:
-  port: 8012
+  port: 8014
 
 eureka:
   instance:
@@ -17,19 +17,23 @@ spring:
   application:
     name: bookedticketservice
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:bookedticketdb;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
     driverClassName: org.h2.Driver
     username: sa
     password: password
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
     show-sql: true
     hibernate:
+      ddl-auto: create-drop # pt++ : none = ignores it because of : @EntityScan + possible values https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
   h2:
     console:
       enabled: true
       path: /h2-console
+  codec:
+    max-in-memory-size: 256KB # pt++ : Spring WebClient Memory limit
 
 management:
   security:

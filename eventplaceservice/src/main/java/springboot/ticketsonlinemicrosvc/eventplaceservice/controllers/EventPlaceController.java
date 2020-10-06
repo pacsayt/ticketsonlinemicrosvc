@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
-import springboot.ticketsonlinemicrosvc.common.entities.EventPlaces;
+import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
+import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlaces;
 import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlaceService;
 
 import java.util.Collections;

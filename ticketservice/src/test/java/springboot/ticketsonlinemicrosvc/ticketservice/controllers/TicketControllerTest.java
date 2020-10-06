@@ -10,8 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
-import springboot.ticketsonlinemicrosvc.common.entities.Tickets;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Tickets;
 import springboot.ticketsonline.services.TestBase;
 import springboot.ticketsonlinemicrosvc.ticketservice.services.TicketService;
 

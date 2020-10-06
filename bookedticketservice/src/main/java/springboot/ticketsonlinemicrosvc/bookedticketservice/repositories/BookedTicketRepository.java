@@ -1,7 +1,7 @@
 package springboot.ticketsonlinemicrosvc.bookedticketservice.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import springboot.ticketsonlinemicrosvc.common.entities.BookedTicket;
+import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicket;
 
 public interface BookedTicketRepository extends JpaRepository<BookedTicket, Long>
 {
