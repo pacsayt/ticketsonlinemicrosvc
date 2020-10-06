@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.ticketsonlinemicrosvc.eventservice.controllers.EventController;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.Event;
 import springboot.ticketsonlinemicrosvc.eventservice.repositories.EventRepository;
 
 import java.sql.Timestamp;

@@ -1,11 +1,12 @@
 package springboot.ticketsonlinemicrosvc.eventservice;
 
+import brave.sampler.Sampler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Spring Boot With H2 Database
@@ -39,8 +40,8 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
  * }
  *
  */
-@EnableEurekaClient // pt++ : @EnableEurekaServer
 @SpringBootApplication
+@EnableEurekaClient
 @EnableHystrixDashboard
 @EnableCircuitBreaker
 public class EventServiceApplication
@@ -48,7 +49,11 @@ public class EventServiceApplication
 	public static void main(String[] args)
 	{
 		SpringApplication.run(EventServiceApplication.class, args);
-
-		while (true){}
 	}
-}
+
+	@Bean
+	public Sampler getSampler()
+	{ // pt++ : a loggolas kozponti helyen (Sleuth ? Zipkin) valo megjelenitesehez kell
+		return Sampler.ALWAYS_SAMPLE; // pt++ : https://cloud.spring.io/spring-cloud-sleuth/2.0.x/multi/multi__sampling.html
+	}
+ }

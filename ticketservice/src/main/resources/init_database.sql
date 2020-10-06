@@ -1,8 +1,13 @@
---DROP TABLE IF EXISTS event_place;
---
---CREATE TABLE event_place (
---  id INT AUTO_INCREMENT  PRIMARY KEY,
---  first_name VARCHAR(250) NOT NULL,
---  last_name VARCHAR(250) NOT NULL,
---  career VARCHAR(250) DEFAULT NULL
---);
+drop table if exists ticket CASCADE;
+
+DROP SEQUENCE drop sequence IF EXISTS if exists hibernate_sequence;
+CREATE SEQUENCE hibernate_sequence START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE ticket
+(
+  ticket_id BIGINT NOT NUL,
+  seat_no INTEGER,
+  ticket_price INTEGER,
+  event_id BIGINT NOT NULL,
+  PRIMARY KEY (ticket_id)
+);

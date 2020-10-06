@@ -9,8 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlace;
+import springboot.ticketsonlinemicrosvc.common.entities.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;

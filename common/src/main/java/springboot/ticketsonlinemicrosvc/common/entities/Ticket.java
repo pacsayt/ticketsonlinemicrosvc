@@ -1,4 +1,4 @@
-package springboot.ticketsonlinemicrosvc.eventplaceservice.services;
+package springboot.ticketsonlinemicrosvc.common.entities;
 
 import javax.persistence.*;
 import java.util.Objects;

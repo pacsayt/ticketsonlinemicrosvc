@@ -2,8 +2,7 @@ package springboot.ticketsonlinemicrosvc.ticketservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Ticket;
+import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
 import springboot.ticketsonlinemicrosvc.ticketservice.repositories.TicketRepository;
 
 import javax.persistence.EntityManager;

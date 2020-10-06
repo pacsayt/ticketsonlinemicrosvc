@@ -2,7 +2,7 @@ package springboot.ticketsonlinemicrosvc.eventplaceservice.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlace;
+import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
 
 import java.util.List;
 

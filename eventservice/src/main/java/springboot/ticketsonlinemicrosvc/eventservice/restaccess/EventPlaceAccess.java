@@ -1,13 +1,11 @@
 package springboot.ticketsonlinemicrosvc.eventservice.restaccess;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.client.RestTemplate;
+// import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlace;
-
-import java.util.logging.Level;
+import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
 
 /**
  * Spring 5 WebClient

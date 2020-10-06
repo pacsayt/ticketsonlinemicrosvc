@@ -11,9 +11,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.controllers.BookedTicketController;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.BookedTicket;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.BookedTickets;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Ticket;
+import springboot.ticketsonlinemicrosvc.common.entities.BookedTicket;
+import springboot.ticketsonlinemicrosvc.common.entities.BookedTickets;
+import springboot.ticketsonlinemicrosvc.common.entities.Ticket;
 
 import java.util.List;
 import java.util.Optional;

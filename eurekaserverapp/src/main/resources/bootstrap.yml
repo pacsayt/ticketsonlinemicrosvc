@@ -1,5 +1,5 @@
-#server:
-#  port:8888
+server:
+  port:8888
 
 spring:
   application:
@@ -7,11 +7,15 @@ spring:
   profiles:
     active: composite
   cloud:
-    config:
-      server:
-        git:
-          uri: /home/tamas/projektek/TicketsOnline/ticketsonlinecfg
-          cloneOnStart: true
+#    config:
+#      server:
+#        git:
+#          uri: file:/${user.home}/projektek/TicketsOnline/ticketsonlinecfg
+##          cloneOnStart: true
+#          skipSslValidation: true
+    loadbalancer:
+      ribbon:
+        enabled:false
 
 management:
   security:

@@ -1,10 +1,7 @@
 package springboot.ticketsonlinemicrosvc.bookedticketservice.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.BookedTicket;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
-
-import java.util.List;
+import springboot.ticketsonlinemicrosvc.common.entities.BookedTicket;
 
 public interface BookedTicketRepository extends JpaRepository<BookedTicket, Long>
 {

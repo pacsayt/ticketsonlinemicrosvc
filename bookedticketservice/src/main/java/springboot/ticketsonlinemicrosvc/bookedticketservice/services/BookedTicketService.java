@@ -3,8 +3,8 @@ package springboot.ticketsonlinemicrosvc.bookedticketservice.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.repositories.BookedTicketRepository;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.BookedTicket;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.BookedTicket;
+import springboot.ticketsonlinemicrosvc.common.entities.Event;
 
 import java.sql.Timestamp;
 import java.util.Collections;

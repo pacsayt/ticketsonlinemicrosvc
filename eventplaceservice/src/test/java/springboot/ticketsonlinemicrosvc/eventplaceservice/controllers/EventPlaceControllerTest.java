@@ -16,8 +16,8 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlace;
-import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlaces;
+import springboot.ticketsonlinemicrosvc.common.entities.EventPlace;
+import springboot.ticketsonlinemicrosvc.common.entities.EventPlaces;
 
 import java.net.URI;
 

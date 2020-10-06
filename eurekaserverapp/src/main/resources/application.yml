@@ -9,9 +9,14 @@ spring:
     config:
       server:
         git:
-          uri: /home/tamas/projektek/TicketsOnline/ticketsonlinecfg
+          uri: file:/${user.home}/projektek/TicketsOnline/ticketsonlinecfg
           #      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
-          cloneOnStart: true
+#          username: trolley
+#          password: strongpassword
+          repos:
+            default: file:/${user.home}/projektek/TicketsOnline/ticketsonlinecfg
+#          cloneOnStart: true
+          skipSslValidation: true
     loadbalancer:
       ribbon:
         enabled:false

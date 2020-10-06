@@ -1,4 +1,4 @@
-package springboot.ticketsonlinemicrosvc.eventplaceservice.services;
+package springboot.ticketsonlinemicrosvc.common.entities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,12 +19,12 @@ import java.util.Objects;
  * - no EJB  
  */
 @Entity
-@Table( name = "event", uniqueConstraints={@UniqueConstraint(columnNames = {"name" , "date"})}) // pt++
+@Table( name = "event") // , uniqueConstraints={@UniqueConstraint(columnNames = {"name" , "date"})}) // pt++
 public class Event
 {
   @Id
   @GeneratedValue( strategy = GenerationType.AUTO, generator = "")
-  @Column(name = "event_id")
+  @Column(name = "event_id", unique = true)
   private Long iD;
 
   @Column( name="name", length = 255, nullable = true, unique = false)

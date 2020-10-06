@@ -16,6 +16,8 @@ eureka:
 spring:
   application:
     name: eventservice
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver

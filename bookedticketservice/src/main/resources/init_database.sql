@@ -1,8 +1,8 @@
---DROP TABLE IF EXISTS event_place;
---
---CREATE TABLE event_place (
---  id INT AUTO_INCREMENT  PRIMARY KEY,
---  first_name VARCHAR(250) NOT NULL,
---  last_name VARCHAR(250) NOT NULL,
---  career VARCHAR(250) DEFAULT NULL
---);
+DROP TABLE IF EXISTS bookedticket CASCADE;
+
+CREATE TABLE bookedticket
+(
+  bookedticket_id BIGINT NOT NULL,
+  booked_ticket_ticket_id BIGINT,
+  PRIMARY KEY (bookedticket_id)
+);
