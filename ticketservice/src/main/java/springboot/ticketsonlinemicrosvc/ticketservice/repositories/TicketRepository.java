@@ -1,7 +1,7 @@
 package springboot.ticketsonlinemicrosvc.ticketservice.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.TicketEntity;
 
 import java.util.List;
 
@@ -13,19 +13,19 @@ import java.util.List;
  * Hibernate Logging Guide – Use the right config for development and production
  * https://thorben-janssen.com/hibernate-logging-guide/
  */
-public interface TicketRepository extends JpaRepository<Ticket, Long>
+public interface TicketRepository extends JpaRepository<TicketEntity, Long>
 {
-  List<Ticket> findByTicketPrice( Integer ticketPrice);
+  List<TicketEntity> findByTicketPrice(Integer ticketPrice);
 
-  List<Ticket> findByTicketPriceLessThan( Integer ticketPrice);
+  List<TicketEntity> findByTicketPriceLessThan(Integer ticketPrice);
 
-  List<Ticket> findByTicketPriceBetween( Integer minPrice, Integer maxPrice);
-
-  // pt++ : referenced object in query param : must be done on contoller level as this microservece has the ticket table ONLY
-  //  List<Ticket> findByEventAndTicketPrice( Event event, Integer ticketPrice); // pt++ : referenced object in query param
-
-  List<Ticket> findByEventId( Long eventId);
+  List<TicketEntity> findByTicketPriceBetween(Integer minPrice, Integer maxPrice);
 
   // pt++ : referenced object in query param : must be done on contoller level as this microservece has the ticket table ONLY
-  // List<Ticket> findByEventName( String name);
+  //  List<TicketEntity> findByEventAndTicketPrice( EventEntity event, Integer ticketPrice); // pt++ : referenced object in query param
+
+  List<TicketEntity> findByEventId(Long eventId);
+
+  // pt++ : referenced object in query param : must be done on contoller level as this microservece has the ticket table ONLY
+  // List<TicketEntity> findByEventName( String name);
 }

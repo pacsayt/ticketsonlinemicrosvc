@@ -5,6 +5,10 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ *                                http://localhost:8761/
+ */
+
 @Configuration
 @EnableEurekaServer
 // @EnableConfigServer // pt++ : -> pacsayt/ticketsonlinecfg produces an exception at startup :

@@ -22,8 +22,8 @@ public class Events
     return events;
   }
 
-  public void setEvents( List<Event> iniEvents)
+  public void setEvents( List<Event> iniEventEntities)
   {
-    events = iniEvents;
+    events = iniEventEntities;
   }
 }

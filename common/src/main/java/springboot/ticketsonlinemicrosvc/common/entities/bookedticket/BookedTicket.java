@@ -1,39 +1,33 @@
 package springboot.ticketsonlinemicrosvc.common.entities.bookedticket;
 
-import javax.persistence.*;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.TicketEntity;
+
 import java.util.Objects;
 
-@Entity
-@Table( name="bookedticket")
 public class BookedTicket
 {
-  @Id
-  @GeneratedValue( strategy = GenerationType.AUTO, generator = "") // pt++ : both default values, just to show them ...
-  @Column(name = "bookedticket_id") // pt++ : just to show it ...
   private Long iD;
 
-  // pt++ : fetch = FetchType.EAGER - default value
-  @Column(name = "ticket_id")
-  private Long ticketId;
+  private TicketEntity bookedTicketEntity;
 
   public BookedTicket()
   {
   }
 
-  public BookedTicket( Long iniId, Long iniTicketId)
+  public BookedTicket( Long iniId, TicketEntity iniBookedTicketEntity)
   {
     iD = iniId;
-    ticketId = iniTicketId;
+    bookedTicketEntity = iniBookedTicketEntity;
   }
 
-  public Long getTicketId()
+  public TicketEntity getBookedTicket()
   {
-    return ticketId;
+    return bookedTicketEntity;
   }
 
-  public void seTicketId(Long iniTicketId)
+  public void setBookedTickets(TicketEntity iniBookedTicketEntity)
   {
-    ticketId = iniTicketId;
+    bookedTicketEntity = iniBookedTicketEntity;
   }
 
   public Long getiD()
@@ -59,12 +53,12 @@ public class BookedTicket
     }
     BookedTicket that = (BookedTicket) o;
     return Objects.equals(iD, that.iD) &&
-            Objects.equals(ticketId, that.ticketId);
+            Objects.equals(bookedTicketEntity, that.bookedTicketEntity);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(iD, ticketId);
+    return Objects.hash(iD, bookedTicketEntity);
   }
 }

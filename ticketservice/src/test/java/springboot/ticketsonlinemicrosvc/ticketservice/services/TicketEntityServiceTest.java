@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.TicketEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-@DisplayName( "Ticket test cases")
-public class TicketServiceTest
+@DisplayName( "TicketEntity test cases")
+public class TicketEntityServiceTest
 {
   @Autowired
   private TicketService ticketService;
@@ -27,7 +27,7 @@ public class TicketServiceTest
   @Test
   public void testFindExistingTicket()
   {
-    Optional<Ticket> optionalTicket = ticketService.findById( 11L);
+    Optional<TicketEntity> optionalTicket = ticketService.findById( 11L);
 
     assertTrue( optionalTicket.isPresent());
   }
@@ -37,9 +37,9 @@ public class TicketServiceTest
   @Test
   public void testFindAllTickets()
   {
-    List<Ticket> optionalTicket = ticketService.findAll();
+    List<TicketEntity> optionalTicketEntity = ticketService.findAll();
 
-    assertEquals( 5, optionalTicket.size()); // pt++ : if execution order of tc-s changes might get 6
+    assertEquals( 5, optionalTicketEntity.size()); // pt++ : if execution order of tc-s changes might get 6
   }
 
   @Test
@@ -47,10 +47,10 @@ public class TicketServiceTest
   {
     Long ticketsCountBefore = ticketService.count();
 
-//    Ticket ticketTobeDeleted = new Ticket( 33L, 0, null, 0); pt++ : won't delete as this occours in BookedTickets
-    Ticket ticketTobeDeleted = new Ticket( 13L, 0, null, 0);
+//    TicketEntity ticketEntityTobeDeleted = new TicketEntity( 33L, 0, null, 0); pt++ : won't delete as this occours in BookedTickets
+    TicketEntity ticketEntityTobeDeleted = new TicketEntity( 13L, 0, null, 0);
 
-    ticketService.delete( ticketTobeDeleted);
+    ticketService.delete(ticketEntityTobeDeleted);
 
     Long ticketsCountAfter = ticketService.count();
 
@@ -65,12 +65,12 @@ public class TicketServiceTest
 // pt++ : EntityManager entitymanager = emfactory.createEntityManager();
 
     EntityManager entityManager = ticketService.getEntityManager();
-    Query query = entityManager.createQuery( "Select t from Ticket t");
+    Query query = entityManager.createQuery( "Select t from TicketEntity t");
 
     // pt++ : query.getResultStream() / getFirstResult()
-    List<Ticket> ticketResultList = (List<Ticket>)query.getResultList();
+    List<TicketEntity> ticketEntityResultList = (List<TicketEntity>)query.getResultList();
 
-    assertEquals( 6, ticketResultList.size());
+    assertEquals( 6, ticketEntityResultList.size());
   }
 
 }

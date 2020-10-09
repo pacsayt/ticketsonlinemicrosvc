@@ -13,8 +13,8 @@
   <groupId>springboot.ticketsonlinemicrosvc</groupId>
   <artifactId>bookedticketservice</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Booked ticket service</name>
-  <description>Booked ticket service</description>
+  <name>Booked ticketEntity service</name>
+  <description>Booked ticketEntity service</description>
 
   <properties>
     <java.version>13</java.version>

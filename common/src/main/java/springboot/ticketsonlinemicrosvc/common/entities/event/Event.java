@@ -1,6 +1,7 @@
 package springboot.ticketsonlinemicrosvc.common.entities.event;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -8,52 +9,44 @@ import java.util.Objects;
 // import java.util.Date;
 
 /**
- * called persistent classes in Hibernate
- *
- * rules of persistent classes (no hard requirements)
- * - default constructor
- * - contain an ID
- * - getXXX()/setXXX() - JavaBean style
- * - central feature of Hibernate, proxies, depends upon the persistent class being either non-final,
- *   or the implementation of an interface that declares all public methods.
- * - no EJB  
+ * This is the object oriented version.
+ * Split into EventEntity and EventPlace classes to save to a DB.
  */
-@Entity
-@Table( name = "event") // , uniqueConstraints={@UniqueConstraint(columnNames = {"name" , "date"})}) // pt++
 public class Event
 {
-  @Id
-  @GeneratedValue( strategy = GenerationType.AUTO, generator = "")
-  @Column(name = "event_id", unique = true)
   private Long iD;
 
-  @Column( name="name", length = 255, nullable = true, unique = false)
   private String name;
 
-  @Column( name="date")
   private Timestamp date;
 
-  @Column( name="event_place_id")
-  private Long eventPlaceId;
+  private EventPlace eventPlace;
 
   public Event()
   {
   }
 
-  @Autowired
-  public Event(Long iniID, String iniName, Timestamp iniDate, Long iniEventPlaceId)
+  public Event(Long iniID, String iniName, Timestamp iniDate, EventPlace iniEventPlace)
   {
     iD = iniID;
     name = iniName;
     date = iniDate;
-    eventPlaceId = iniEventPlaceId;
+    eventPlace = iniEventPlace;
   }
 
-/*
-  @Id // pt++ : should this annotation be added here or to the member definition ?
-  @GeneratedValue(generator="increment")
-  @GenericGenerator(name="increment", strategy = "increment")
-*/
+  public Event( EventEntity iniEventEntity, EventPlace iniEventPlace)
+  {
+    iD = iniEventEntity.getId();
+    name = iniEventEntity.getName();
+    date = iniEventEntity.getDate();
+    eventPlace = iniEventPlace;
+  }
+
+  /*
+    @Id // pt++ : should this annotation be added here or to the member definition ?
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
+  */
   public Long getId() {
     return iD;
   }
@@ -83,14 +76,14 @@ public class Event
     date = iniDate;
   }
 
-  public Long getEventPlaceId()
+  public EventPlace getEventPlace()
   {
-    return eventPlaceId;
+    return eventPlace;
   }
 
-  public void setEventPlaceId(Long iniEventPlaceId)
+  public void setEventPlace(EventPlace iniEventPlace)
   {
-    eventPlaceId = iniEventPlaceId;
+    eventPlace = iniEventPlace;
   }
 
   @Override
@@ -109,14 +102,14 @@ public class Event
     Event event = (Event) o;
 
     return Objects.equals(iD, event.iD) &&
-           Objects.equals(name, event.name) &&
-           Objects.equals(date, event.date) &&
-           Objects.equals(eventPlaceId, event.eventPlaceId);
+            Objects.equals(name, event.name) &&
+            Objects.equals(date, event.date) &&
+            Objects.equals(eventPlace, event.eventPlace);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(iD, name, date, eventPlaceId);
+    return Objects.hash(iD, name, date, eventPlace);
   }
 }

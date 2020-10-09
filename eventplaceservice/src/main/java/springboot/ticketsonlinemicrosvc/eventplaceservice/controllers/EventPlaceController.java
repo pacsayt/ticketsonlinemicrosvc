@@ -12,6 +12,11 @@ import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlaceSer
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * http://localhost:8011/eventplace/
+ * http://localhost:8011/eventplace/11
+ */
+
 @RestController                     // pt++ : you cannot specify root path here (it seems)
 @RequestMapping( path="eventplace") // pt++ : root path must be specified separately path == value aliasses
 public class EventPlaceController

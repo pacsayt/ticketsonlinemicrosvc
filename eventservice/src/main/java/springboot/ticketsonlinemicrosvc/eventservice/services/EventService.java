@@ -3,14 +3,23 @@ package springboot.ticketsonlinemicrosvc.eventservice.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import springboot.ticketsonlinemicrosvc.eventservice.controllers.EventController;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
+import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
+import springboot.ticketsonlinemicrosvc.eventservice.controllers.EventController;
 import springboot.ticketsonlinemicrosvc.eventservice.repositories.EventRepository;
+import springboot.ticketsonlinemicrosvc.eventservice.restaccess.EventPlaceAccess;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService
@@ -20,55 +29,147 @@ public class EventService
   @Autowired
   private EventRepository eventRepository;
 
+  @Autowired
+  EventPlaceAccess eventPlaceAccess;
+
   public Long count()
   {
     return eventRepository.count();
   }
 
-  public Event save(Event EventToSave)
+  public Event save( Event eventToSave)
   {
-    return eventRepository.save( EventToSave);
+    EventPlace eventPlaceToSave = eventToSave.getEventPlace();
+
+    Mono<EventPlace> eventPlaceSavedMono = eventPlaceAccess.post( eventPlaceToSave);
+
+    EventPlace eventPlaceSaved = eventPlaceSavedMono.block();
+
+    EventEntity eventEntityToSave = new EventEntity( eventToSave, eventPlaceSaved.getId());
+
+    EventEntity eventEntitySaved = eventRepository.save( eventEntityToSave);
+
+    return new Event( eventEntitySaved, eventPlaceSaved);
   }
 
-//    EventRepository.findOne(Example<Event> EventExample)
-
-  public Optional<Event> findById( Long iD)
+  public Optional<Event> findById(Long iD)
   {
-    Optional<Event> eventOptional = eventRepository.findById( iD);
+    Optional<EventEntity> eventEntityOptional = eventRepository.findById(iD);
 
-LOG.info( "EventService::findById( " + iD + ") -> " + eventOptional.isPresent());
+    LOG.info("EventService::findById( " + iD + ") -> EventEntity : " + eventEntityOptional.orElseGet(() -> new EventEntity()) + " +++++++++++++++++++++++++++++++++++++++++++++ ");
 
-    return eventOptional;
+    if ( eventEntityOptional.isPresent() )
+    {
+      Long eventPlaceId = eventEntityOptional.get().getEventPlaceId();
+
+      LOG.info("EventService::findById( " + iD + ") -> eventPlaceId : " + eventPlaceId + " +++++++++++++++++++++++++++++++++++++++++++++ ");
+
+      Mono<EventPlace> entityMono = eventPlaceAccess.getById( eventPlaceId);
+
+      EventPlace eventPlace = entityMono.block();
+
+      LOG.info("EventService::findById( " + iD + ") -> eventPlace : " + eventPlace + " +++++++++++++++++++++++++++++++++++++++++++++ ");
+
+      return Optional.of( new Event( eventEntityOptional.get(), eventPlace));
+    }
+
+    return Optional.empty(); // pt++ : for test purposes ONLY
   }
 
+  /**
+   * Reactor – How to convert Flux into List, Map
+   * https://grokonez.com/reactive-programming/reactor/reactor-convert-flux-into-list-map-reactive-programming
+   */
   public List<Event> findAll()
   {
-    return eventRepository.findAll();
+    List<Event> allEvents = new ArrayList<>();
+
+    Flux<EventPlace> allEventPlacesFux = eventPlaceAccess.getAll();
+
+    List<EventEntity> allEventEntities = eventRepository.findAll();
+
+    List<EventPlace> allEventPlaces = allEventPlacesFux.collectList().block();
+
+    for( EventEntity ee : allEventEntities )
+    {
+      for ( EventPlace ep : allEventPlaces )
+      {
+        if ( ee.getEventPlaceId().equals( ep.getId()))
+        {
+          allEvents.add( new Event( ee, ep));
+
+          break;
+        }
+      }
+    }
+
+    return allEvents;
   }
 
-  public List<Event> findByName( String name)
+  public List<Event> findByName(String name)
   {
-    return eventRepository.findByName( name);
+    List<EventEntity> eventEntitesFound = eventRepository.findByName( name);
+
+    return eventEntitiesToEvents( eventEntitesFound);
   }
 
-  public List<Event> findByDate( Timestamp date)
+  public List<Event> findByDate(Timestamp date)
   {
-    return eventRepository.findByDate( date);
+    List<EventEntity> eventEntitesFound = eventRepository.findByDate( date);
+
+    return eventEntitiesToEvents( eventEntitesFound);
   }
 
-
-  public Optional<Event> findByNameAndDate( String name, Timestamp date)
+  public Optional<Event> findByNameAndDate(String name, Timestamp date)
   {
-    return eventRepository.findByNameAndDate( name, date);
+    Optional<EventEntity> optionalEventEntityFound = eventRepository.findByNameAndDate( name, date);
+
+    if ( optionalEventEntityFound.isPresent() )
+    {
+      Mono<EventPlace> monoEventPlace = eventPlaceAccess.getById( optionalEventEntityFound.get().getEventPlaceId());
+
+      return Optional.of( new Event( optionalEventEntityFound.get(), monoEventPlace.block()));
+    }
+
+    return Optional.empty();
   }
 
-  public void delete( Event  EventToBeDeleted)
+  public void delete( Event eventToBeDeleted)
   {
-    eventRepository.delete( EventToBeDeleted);
+    eventRepository.delete( new EventEntity( eventToBeDeleted));
   }
 
-  public Event getOne( Long iD)
+  /**
+   * pt++ : Difference between getOne and findById in Spring Data JPA?
+   * getOne()
+   * Lazily loaded reference to target entity
+   * Useful only when access to properties of object is not required
+   * Throws EntityNotFoundException if actual object does not exist at the time of access invocation
+   * Better performance
+   *
+   * findById()
+   * Actually loads the entity for the given id
+   * Object is eagerly loaded so all attributes can be accessed
+   * Returns null if actual object corresponding to given Id does not exist
+   * An additional round-trip to database is required
+   *
+   * https://www.javacodemonk.com/difference-between-getone-and-findbyid-in-spring-data-jpa-3a96c3ff
+   */
+  public Event getOne(Long iD)
   {
-    return eventRepository.getOne( iD);
+    // pt++ : using this way might give a slap the shit in the face ...
+    EventEntity eventEntityFound = eventRepository.getOne( iD);
+
+    Mono<EventPlace> monoEventPlace = eventPlaceAccess.getById( eventEntityFound.getEventPlaceId());
+
+    return new Event( eventEntityFound, monoEventPlace.block());
+  }
+
+  private List<Event> eventEntitiesToEvents( List<EventEntity> eventEntities)
+  {
+    return eventEntities.stream().map( eventEntity -> {
+                                                        Mono<EventPlace> monoEventPlace = eventPlaceAccess.getById( eventEntity.getEventPlaceId());
+                                                        return new Event( eventEntity, monoEventPlace.block());
+                                                      }).collect( Collectors.toList());
   }
 }

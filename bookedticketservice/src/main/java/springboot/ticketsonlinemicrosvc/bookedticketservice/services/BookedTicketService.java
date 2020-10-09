@@ -3,8 +3,8 @@ package springboot.ticketsonlinemicrosvc.bookedticketservice.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.repositories.BookedTicketRepository;
-import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicket;
-import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicketEntity;
+import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -32,39 +32,39 @@ public class BookedTicketService
     return bookedTicketRepository.count();
   }
 
-  public BookedTicket save( BookedTicket bookedTicketToSave)
+  public BookedTicketEntity save(BookedTicketEntity bookedTicketEntityToSave)
   {
-    return bookedTicketRepository.save( bookedTicketToSave);
+    return bookedTicketRepository.save(bookedTicketEntityToSave);
   }
 
-  public Optional<BookedTicket> findById( Long iD)
+  public Optional<BookedTicketEntity> findById(Long iD)
   {
-    Optional<BookedTicket> bookedTicketOptional = bookedTicketRepository.findById( iD);
+    Optional<BookedTicketEntity> bookedTicketOptional = bookedTicketRepository.findById( iD);
 
     return bookedTicketOptional;
   }
 
-  public List<BookedTicket> findAll()
+  public List<BookedTicketEntity> findAll()
   {
     return bookedTicketRepository.findAll();
   }
 
-  public List<BookedTicket> findByBookedTicketEvent( Event event)
+  public List<BookedTicketEntity> findByBookedTicketEvent(EventEntity eventEntity)
   {
-    return Collections.emptyList(); // bookedTicketRepository.findByBookedTicketEvent( event);
+    return Collections.emptyList(); // bookedTicketRepository.findByBookedTicketEvent( eventEntity);
   }
 
   public Integer findAvailableTickets( String name, Timestamp date) // pt++ : must be updated because of microservices
   {
     Integer noOfFreSeatsForTheEvent = 0;
 /*
-    Optional<Event> optionalEventOnADay = Optional.empty(); // eventRepository.findByNameAndDate( name, date); pt++ : must call event microservice from a higher level
+    Optional<EventEntity> optionalEventOnADay = Optional.empty(); // eventRepository.findByNameAndDate( name, date); pt++ : must call event microservice from a higher level
 
     if ( optionalEventOnADay.isPresent() )
     {
-// ??? List<Ticket> listTicketsForTheEvent = ticketService.findByEvent( optionalEventOnADay.get());
-      Event matchingEvent = optionalEventOnADay.get();
-      List<BookedTicket> bookedTicketsForTheEvent = bookedTicketRepository.findByBookedTicketEvent( matchingEvent);
+// ??? List<TicketEntity> listTicketsForTheEvent = ticketService.findByEvent( optionalEventOnADay.get());
+      EventEntity matchingEvent = optionalEventOnADay.get();
+      List<BookedTicketEntity> bookedTicketsForTheEvent = bookedTicketRepository.findByBookedTicketEvent( matchingEvent);
 
       noOfFreSeatsForTheEvent = matchingEvent.getEventPlace().getNoOfSeats() - bookedTicketsForTheEvent.size();
     }
@@ -78,8 +78,8 @@ public class BookedTicketService
   }
 
   // pt++ : what is something similar
-  public void delete( BookedTicket bookedTicketToBeDeleted)
+  public void delete( BookedTicketEntity bookedTicketEntityToBeDeleted)
   {
-    bookedTicketRepository.delete( bookedTicketToBeDeleted);
+    bookedTicketRepository.delete(bookedTicketEntityToBeDeleted);
   }
 }

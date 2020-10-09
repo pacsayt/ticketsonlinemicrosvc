@@ -1,36 +1,39 @@
 package springboot.ticketsonlinemicrosvc.common.entities.ticket;
 
+import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
+
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
 
-@Entity
-@Table( name = "ticket")
 public class Ticket
 {
-  @Id
-  @GeneratedValue( strategy = GenerationType.AUTO, generator = "") // pt++ : both default values, GenerationType.IDENTITY ???
-  @Column( name = "ticket_id") // pt++ : just to show it ...
   private Long iD;
 
-  @Column( name = "seat_no", precision = 255, scale = 0) // pt++ : just to show it ...
   private Integer seatNo;
 
-  @Column( name="event_id", nullable=false)
-  private Long eventId;
+  private Event event;
 
-  @Column( name="ticket_price")
   private Integer ticketPrice;
 
   public Ticket()
   {
   }
 
-  public Ticket(Long iniId, Integer iniSeatNo, Long iniEventId, Integer iniTicketPrice)
+  public Ticket(Long iniId, Integer iniSeatNo, Event iniEvent, Integer iniTicketPrice)
   {
     iD = iniId;
     seatNo = iniSeatNo;
-    eventId = iniEventId;
+    event = iniEvent;
     ticketPrice = iniTicketPrice;
+  }
+
+  public Ticket( TicketEntity iniTicketEntity, Event iniEvent)
+  {
+    iD = iniTicketEntity.getiD();
+    seatNo = iniTicketEntity.getSeatNo();
+    event = iniEvent;
+    ticketPrice = iniTicketEntity.getTicketPrice();
   }
 
   public Long getiD()
@@ -53,14 +56,14 @@ public class Ticket
     seatNo = iniSeatNo;
   }
 
-  public Long getEventId()
+  public Event getEvent()
   {
-    return eventId;
+    return event;
   }
 
-  public void setEventId(Long iniEventId)
+  public void setEvent(Event iniEvent)
   {
-    eventId = iniEventId;
+    event = iniEvent;
   }
 
   public Integer getTicketPrice()
@@ -90,13 +93,13 @@ public class Ticket
 
     return Objects.equals(iD, ticket.iD) &&
             Objects.equals(seatNo, ticket.seatNo) &&
-            Objects.equals(eventId, ticket.eventId) &&
+            Objects.equals(event, ticket.event) &&
             Objects.equals(ticketPrice, ticket.ticketPrice);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(iD, seatNo, eventId, ticketPrice);
+    return Objects.hash(iD, seatNo, event, ticketPrice);
   }
 }

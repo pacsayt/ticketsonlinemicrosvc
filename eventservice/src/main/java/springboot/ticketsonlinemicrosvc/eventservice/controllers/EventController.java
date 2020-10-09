@@ -5,8 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springboot.ticketsonlinemicrosvc.common.entities.event.Events;
 import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
+import springboot.ticketsonlinemicrosvc.common.entities.event.Events;
 import springboot.ticketsonlinemicrosvc.eventservice.services.EventService;
 
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class EventController
 
   // <-> public ResponseEntity<Object> EventPlaceController::post( @RequestBody EventPlace eventPlace)
   @PostMapping // pt++ : POST - INSERT
-  public ResponseEntity<Optional<Event>> post( @RequestBody Event event)
+  public ResponseEntity<Optional<Event>> post(@RequestBody Event event)
   {
     LOG.info( "EventController::post( " + event + ") +++++++++++++++++++++++++++++++");
 
@@ -47,12 +48,12 @@ public class EventController
   }
 
   @PutMapping // pt++ : PUT - update
-  public ResponseEntity<Optional<Event>> put( @RequestBody Event event)
+  public ResponseEntity<Optional<Event>> put(@RequestBody Event event)
   {
     LOG.info( "EventController::put( " + event + ") +++++++++++++++++++++++++++++++");
 
     Event savedEvent = eventService.save( event);
 
-    return ResponseEntity.ok( Optional.of(savedEvent));
+    return ResponseEntity.ok( Optional.of( savedEvent));
   }
 }

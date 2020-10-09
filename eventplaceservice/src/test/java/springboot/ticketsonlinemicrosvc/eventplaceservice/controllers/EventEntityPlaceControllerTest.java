@@ -39,7 +39,7 @@ import java.net.URI;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // pt++ : @WebMvcTest
-public class EventPlaceControllerTest
+public class EventEntityPlaceControllerTest
 {
   @LocalServerPort
   private int portNumber; // pt++ : annotated primitive type ...

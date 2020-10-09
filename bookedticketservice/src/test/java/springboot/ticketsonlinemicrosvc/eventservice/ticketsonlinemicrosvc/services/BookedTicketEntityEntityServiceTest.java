@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
-import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicket;
-import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicketEntity;
+import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @Transactional
-public class BookedTicketServiceTest extends TestBase
+public class BookedTicketEntityEntityServiceTest extends TestBase
 {
 //  @Autowired
 //  private EventPlaceService eventPlaceService; pt++ : will be done over microservicer anyway ...
@@ -45,9 +45,9 @@ public class BookedTicketServiceTest extends TestBase
   @Test
   public void testfindAll()
   {
-    List<BookedTicket> listBookedTickets = bookedTicketService.findAll();
+    List<BookedTicketEntity> listBookedTicketEntities = bookedTicketService.findAll();
 
-    assertEquals( 2, listBookedTickets.size());
+    assertEquals( 2, listBookedTicketEntities.size());
   }
 
   @Test
@@ -61,22 +61,22 @@ public class BookedTicketServiceTest extends TestBase
 //
 //    assertTrue( 111L != eventPlaceSaved.getId());
 //
-//    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceSaved);
+//    EventEntity eventToSave = new EventEntity( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceSaved);
 //
-//    Event eventSaved = eventService.save( eventToSave);
+//    EventEntity eventSaved = eventService.save( eventToSave);
 //
-//    Ticket ticketToSave = new Ticket( 0L, 55, eventSaved, 55);
+//    TicketEntity ticketToSave = new TicketEntity( 0L, 55, eventSaved, 55);
 //
-//    Ticket ticketSaved = ticketService.save( ticketToSave);
+//    TicketEntity ticketSaved = ticketService.save( ticketToSave);
 //    EventPlace eventPlaceToSave = new EventPlace( 111L, "Name_55", 110);
-//    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), 111L); // pt++ : bcause of microservice
-//    Ticket ticketToSave = new Ticket( 0L, 55, 55L, 55);
+//    EventEntity eventToSave = new EventEntity( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), 111L); // pt++ : bcause of microservice
+//    TicketEntity ticketToSave = new TicketEntity( 0L, 55, 55L, 55);
 
-    BookedTicket bookedTicketToBeSaved = new BookedTicket( 0L, 55L);
+    BookedTicketEntity bookedTicketEntityToBeSaved = new BookedTicketEntity( 0L, 55L);
 
-    BookedTicket bookedTicketSaved = bookedTicketService.save( bookedTicketToBeSaved);
+    BookedTicketEntity bookedTicketEntitySaved = bookedTicketService.save(bookedTicketEntityToBeSaved);
 
-    Optional<BookedTicket> optionalBookedTicket = bookedTicketService.findById( bookedTicketSaved.getiD());
+    Optional<BookedTicketEntity> optionalBookedTicket = bookedTicketService.findById( bookedTicketEntitySaved.getiD());
 
     assertTrue( optionalBookedTicket.isPresent());
   }
@@ -86,11 +86,11 @@ public class BookedTicketServiceTest extends TestBase
   {
 //    EventPlace eventPlaceSearched = new EventPlace( 111L, "Name_55", 110); // (Long iniID, String iniName, Integer iniNoOfSeats) pt++ : microservices
 
-    Event eventSearchCriteria = new Event( 22L, "EventName_22", stringToDate( "2020-09-03 11:32:41.00"), 22L);
+    EventEntity eventEntitySearchCriteria = new EventEntity( 22L, "EventName_22", stringToDate( "2020-09-03 11:32:41.00"), 22L);
 
-    List<BookedTicket> bookedTicketsForEvent = bookedTicketService.findByBookedTicketEvent( eventSearchCriteria);
+    List<BookedTicketEntity> bookedTicketsForEventEntity = bookedTicketService.findByBookedTicketEvent(eventEntitySearchCriteria);
 
-    assertEquals( 22L, bookedTicketsForEvent.get( 0).getiD());
+    assertEquals( 22L, bookedTicketsForEventEntity.get( 0).getiD());
   }
 
   @Test

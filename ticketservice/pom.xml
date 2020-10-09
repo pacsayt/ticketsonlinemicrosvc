@@ -14,7 +14,7 @@
   <artifactId>ticketservice</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Ticket service</name>
-  <description>The ticket service</description>
+  <description>The ticketEntity service</description>
 
   <properties>
     <java.version>13</java.version>

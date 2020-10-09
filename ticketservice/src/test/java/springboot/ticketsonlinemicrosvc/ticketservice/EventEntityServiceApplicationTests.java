@@ -1,10 +1,10 @@
-package springboot.ticketsonlinemicrosvc.eventplaceservice;
+package springboot.ticketsonline;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EventPlaceServiceApplicationTests
+class EventEntityServiceApplicationTests
 {
   @Test
   void contextLoads()

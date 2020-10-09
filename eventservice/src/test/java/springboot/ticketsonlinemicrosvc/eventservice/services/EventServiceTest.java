@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
 import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
 
 import javax.transaction.Transactional;
@@ -27,8 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 public class EventServiceTest extends TestBase
 {
-//  @Autowired pt++ : in case of separate services no database dependencies among entities will exist
-//  private EventPlaceService eventPlaceService;
+// pt++ : TODO : since EventService will communicate with EventPlaceService, will have to moch this as well ...
 
   @Autowired
   private EventService eventService;
@@ -70,9 +70,9 @@ public class EventServiceTest extends TestBase
   @Test
   public void testFindAll()
   {
-    List<Event> eventFound = eventService.findAll();
+    List<Event> eventEntityFound = eventService.findAll();
 
-    assertTrue( eventFound.size() == 4);
+    assertTrue( eventEntityFound.size() == 4);
   }
 
   @Test
@@ -88,7 +88,7 @@ public class EventServiceTest extends TestBase
   {
 /* The database returned a Timestamp (extends Date) object
 
-    Optional<Event> optionalEvent = eventService.findById( 11L);
+    Optional<EventEntity> optionalEvent = eventService.findById( 11L);
     Timestamp eventDate  = optionalEvent.get().getDate(); // pt++ : Timestamp instead of Date
 
     long timeDate = date.getTime();
@@ -114,13 +114,11 @@ public class EventServiceTest extends TestBase
   @Test
   public void testSave() throws ParseException
   {
-    EventPlace eventPlaceToSave;
-    EventPlace eventPlaceSaved = null;
+    EventPlace eventPlace;
 
-//    eventPlaceToSave = new EventPlace( 111L, "Name_1", 10); // (Long iniID, String iniName, Integer iniNoOfSeats)
-//    eventPlaceSaved = eventPlaceService.save( eventPlaceToSave);
+    eventPlace = new EventPlace( 111L, "Name_1", 10); // (Long iniID, String iniName, Integer iniNoOfSeats)
 
-    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), 55L);
+    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlace);
 
     Event savedEvent = eventService.save( eventToSave);
 
@@ -132,11 +130,11 @@ public class EventServiceTest extends TestBase
   {
     try
     {
-//      EventPlace eventPlaceToSave = new EventPlace( 0L, "Name_1", 10); // pt++ : because of microservice approach (single table / microservice)
+      EventPlace eventPlace = new EventPlace( 0L, "Name_1", 10); // pt++ : because of microservice approach (single table / microservice)
 
-      Event eventToBeDeleted = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), 55L);
+      Event eventToBeDeleted = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlace);
 
-      eventService.delete(eventToBeDeleted);
+      eventService.delete( eventToBeDeleted);
     }
     catch( Exception exception)
     {
@@ -166,7 +164,7 @@ public class EventServiceTest extends TestBase
   @Test
   public void testDeletionOfEventWhereTicketsExist() throws ParseException
   {
-    Event eventToBeDeleted = new Event( 11L, "not existent", stringToDate( "2020-09-03 11:32:41.00"), null);
+    EventEntity eventToBeDeleted = new EventEntity( 11L, "not existent", stringToDate( "2020-09-03 11:32:41.00"), null);
 
     Long countTicketBefore = ticketService.count();
 

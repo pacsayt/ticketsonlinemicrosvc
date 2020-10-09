@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest  // pt++ : starts the whole container that is not always necessary, and can lead to time consuming tests
                  // pt++ : vs. : @WebMvcTest / @DataJpaTest -> all tests fail using this
 @Transactional
-@DisplayName("Event place test cases")
-public class EventPlaceServiceTest
+@DisplayName("EventEntity place test cases")
+public class EventEntityPlaceServiceTest
 {
   @Autowired
   private EventPlaceService eventPlaceService;

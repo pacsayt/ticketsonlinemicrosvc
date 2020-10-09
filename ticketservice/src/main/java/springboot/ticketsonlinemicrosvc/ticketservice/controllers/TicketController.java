@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.TicketEntity;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.Tickets;
 import springboot.ticketsonlinemicrosvc.ticketservice.services.TicketService;
 
@@ -35,11 +36,11 @@ public class TicketController
   {
     Ticket ticketSaved = ticketService.save( ticket);
 
-    return ResponseEntity.ok( Optional.of( ticketSaved)); // pt++ : could be Ticket as well
+    return ResponseEntity.ok( Optional.of( ticketSaved)); // pt++ : could be TicketEntity as well
   }
 
   @PutMapping
-  public ResponseEntity<Optional<Ticket>> put( @RequestBody Ticket ticket)
+  public ResponseEntity<Optional<Ticket>> put(@RequestBody Ticket ticket)
   {
     Ticket ticketUpdated = ticketService.save( ticket);
 

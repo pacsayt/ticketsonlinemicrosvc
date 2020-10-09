@@ -9,6 +9,11 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.context.annotation.Bean;
 
 /**
+ * *****************************************************************************************
+ * http://localhost:8012/event
+ * http://localhost:8012/event/11
+ * *****************************************************************************************
+ *
  * Spring Boot With H2 Database
  * https://www.baeldung.com/spring-boot-h2-database
  *
