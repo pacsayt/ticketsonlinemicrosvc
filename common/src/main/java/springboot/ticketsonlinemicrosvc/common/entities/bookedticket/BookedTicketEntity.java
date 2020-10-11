@@ -20,7 +20,13 @@ public class BookedTicketEntity
   {
   }
 
-  public BookedTicketEntity(Long iniId, Long iniTicketId)
+  public BookedTicketEntity( Long iniTicketId)
+  {
+    ticketId = iniTicketId;
+  }
+
+
+  public BookedTicketEntity( Long iniId, Long iniTicketId)
   {
     iD = iniId;
     ticketId = iniTicketId;

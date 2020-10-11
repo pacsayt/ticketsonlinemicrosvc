@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
+import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlaces;
 
 /**
  * Spring 5 WebClient
@@ -82,7 +83,7 @@ public class EventPlaceAccess
      abstract class Flux<T> implements CorePublisher<T> can return zero to many, possibly infinite, results before completing.
 
      */
-  public Flux<EventPlace> getAll()
+  public Mono<EventPlaces> getAll()
   {
     // pt++ : If we are only interested in response body entity the using methods retrieve() and then bodyToFlux() and bodyToMono() will serve the purpose.
     //        Will throw WebClientException If response status code is 4xx (client error) or 5xx (Server error) i.e. there is no response body
@@ -90,6 +91,6 @@ public class EventPlaceAccess
     return webClient.get()
                     .uri("http://eventplaceservice/")
                     .retrieve()
-                    .bodyToFlux( EventPlace.class);
+                    .bodyToMono( EventPlaces.class);
   }
 }

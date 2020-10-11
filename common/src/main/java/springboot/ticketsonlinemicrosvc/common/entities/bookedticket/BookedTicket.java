@@ -1,6 +1,6 @@
 package springboot.ticketsonlinemicrosvc.common.entities.bookedticket;
 
-import springboot.ticketsonlinemicrosvc.common.entities.ticket.TicketEntity;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
 
 import java.util.Objects;
 
@@ -8,26 +8,26 @@ public class BookedTicket
 {
   private Long iD;
 
-  private TicketEntity bookedTicketEntity;
+  private Ticket ticket;
 
   public BookedTicket()
   {
   }
 
-  public BookedTicket( Long iniId, TicketEntity iniBookedTicketEntity)
+  public BookedTicket( Long iniId, Ticket iniTicket)
   {
     iD = iniId;
-    bookedTicketEntity = iniBookedTicketEntity;
+    ticket = iniTicket;
   }
 
-  public TicketEntity getBookedTicket()
+  public Ticket getTicket()
   {
-    return bookedTicketEntity;
+    return ticket;
   }
 
-  public void setBookedTickets(TicketEntity iniBookedTicketEntity)
+  public void setBookedTickets( Ticket iniTicket)
   {
-    bookedTicketEntity = iniBookedTicketEntity;
+    ticket = iniTicket;
   }
 
   public Long getiD()
@@ -47,18 +47,20 @@ public class BookedTicket
     {
       return true;
     }
+
     if ( o == null || getClass() != o.getClass() )
     {
       return false;
     }
+
     BookedTicket that = (BookedTicket) o;
     return Objects.equals(iD, that.iD) &&
-            Objects.equals(bookedTicketEntity, that.bookedTicketEntity);
+            Objects.equals(ticket, that.ticket);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(iD, bookedTicketEntity);
+    return Objects.hash(iD, ticket);
   }
 }

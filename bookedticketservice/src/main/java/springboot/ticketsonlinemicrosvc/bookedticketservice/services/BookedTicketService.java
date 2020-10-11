@@ -3,8 +3,11 @@ package springboot.ticketsonlinemicrosvc.bookedticketservice.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.repositories.BookedTicketRepository;
+import springboot.ticketsonlinemicrosvc.bookedticketservice.restaccess.TicketServiceAccess;
+import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicket;
 import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicketEntity;
 import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -18,11 +21,8 @@ import java.util.Optional;
 @Service
 public class BookedTicketService
 {
-//  @Autowired
-//  private EventRepository eventRepository; pt++ : must call event microservice from a higher level
-
-//  @Autowired
-//  private TicketService ticketService; ???
+  @Autowired
+  private TicketServiceAccess ticketServiceAccess;
 
   @Autowired
   private BookedTicketRepository bookedTicketRepository;
@@ -32,14 +32,24 @@ public class BookedTicketService
     return bookedTicketRepository.count();
   }
 
-  public BookedTicketEntity save(BookedTicketEntity bookedTicketEntityToSave)
+  public BookedTicket save( BookedTicket bookedTicketToSave)
   {
-    return bookedTicketRepository.save(bookedTicketEntityToSave);
+    Ticket savedTicket = ticketServiceAccess.post( bookedTicketToSave.getTicket());
+
+    BookedTicketEntity bookedTicketEntityToSave = new BookedTicketEntity( savedTicket.getiD());
+
+    BookedTicketEntity bookedTicketEntitySaved = bookedTicketRepository.save( bookedTicketEntityToSave);
+
+    BookedTicket bookedTicketSaved = new BookedTicket( bookedTicketEntitySaved.getiD(), savedTicket);
+
+    return bookedTicketSaved;
   }
 
   public Optional<BookedTicketEntity> findById(Long iD)
   {
     Optional<BookedTicketEntity> bookedTicketOptional = bookedTicketRepository.findById( iD);
+
+
 
     return bookedTicketOptional;
   }

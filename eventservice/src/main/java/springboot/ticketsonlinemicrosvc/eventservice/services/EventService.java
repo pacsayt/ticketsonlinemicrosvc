@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
 import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
 import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
+import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlaces;
 import springboot.ticketsonlinemicrosvc.eventservice.controllers.EventController;
 import springboot.ticketsonlinemicrosvc.eventservice.repositories.EventRepository;
 import springboot.ticketsonlinemicrosvc.eventservice.restaccess.EventPlaceAccess;
@@ -84,15 +85,15 @@ public class EventService
   {
     List<Event> allEvents = new ArrayList<>();
 
-    Flux<EventPlace> allEventPlacesFux = eventPlaceAccess.getAll();
+    Mono<EventPlaces> eventPlacesMono = eventPlaceAccess.getAll();
 
     List<EventEntity> allEventEntities = eventRepository.findAll();
 
-    List<EventPlace> allEventPlaces = allEventPlacesFux.collectList().block();
+    EventPlaces eventPlaces = eventPlacesMono.block();
 
     for( EventEntity ee : allEventEntities )
     {
-      for ( EventPlace ep : allEventPlaces )
+      for ( EventPlace ep : eventPlaces.getEventPlaces() )
       {
         if ( ee.getEventPlaceId().equals( ep.getId()))
         {
