@@ -28,6 +28,14 @@ public class ConfigureRestTemplate
   }
 
   @Bean
+  @LoadBalanced
+  public WebClient.Builder getWebClientBuilder()
+  {
+    return WebClient.builder();
+  }
+
+
+  @Bean
   @LoadBalanced // pt++ : this makes Eureka work ...
   public RestTemplate restTemplate()
   {
