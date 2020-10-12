@@ -1,22 +1,6 @@
-server:
-  port:8888
-
 spring:
   application:
-    name:eurekaserverapp
-  profiles:
-    active: composite
+    name: eureka
   cloud:
-#    config:
-#      server:
-#        git:
-#          uri: file:/${user.home}/projektek/TicketsOnline/ticketsonlinecfg
-##          cloneOnStart: true
-#          skipSslValidation: true
-    loadbalancer:
-      ribbon:
-        enabled:false
-
-management:
-  security:
-    enabled:false
+    config:
+      uri: ${CONFIG_SERVER_URL:http://localhost:8888}

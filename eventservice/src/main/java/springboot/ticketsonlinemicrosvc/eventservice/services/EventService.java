@@ -15,6 +15,7 @@ import springboot.ticketsonlinemicrosvc.eventservice.restaccess.EventPlaceServic
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,6 +51,7 @@ public class EventService
     return new Event( eventEntitySaved, eventPlaceSaved);
   }
 
+/* pt++ : for test ONLY
   public Optional<Event> findById(Long iD)
   {
     Optional<EventEntity> eventEntityOptional = eventRepository.findById(iD);
@@ -73,6 +75,31 @@ public class EventService
 
     return Optional.empty(); // pt++ : for test purposes ONLY
   }
+*/
+
+  // pt++ : RestTemplate version
+  public Optional<Event> findById(Long iD)
+  {
+    Optional<EventEntity> eventEntityOptional = eventRepository.findById(iD);
+
+    LOG.info("EventService::findById( " + iD + ") -> EventEntity : " + eventEntityOptional.orElseGet(() -> new EventEntity()) + " +++++++++++++++++++++++++++++++++++++++++++++ ");
+
+    if ( eventEntityOptional.isPresent() )
+    {
+      Long eventPlaceId = eventEntityOptional.get().getEventPlaceId();
+
+      LOG.info("EventService::findById( " + iD + ") -> eventPlaceId : " + eventPlaceId + " +++++++++++++++++++++++++++++++++++++++++++++ ");
+
+      EventPlace eventPlace = eventPlaceServiceAccess.getById( eventPlaceId);
+
+      LOG.info("EventService::findById( " + iD + ") -> eventPlace : " + eventPlace + " +++++++++++++++++++++++++++++++++++++++++++++ ");
+
+      return Optional.of( new Event( eventEntityOptional.get(), eventPlace));
+    }
+
+    return Optional.empty(); // pt++ : for test purposes ONLY
+  }
+
 
   /**
    * Reactor – How to convert Flux into List, Map
@@ -106,20 +133,23 @@ public class EventService
 
   public List<Event> findByName(String name)
   {
-    List<EventEntity> eventEntitesFound = eventRepository.findByName( name);
-
-    return eventEntitiesToEvents( eventEntitesFound);
+//    List<EventEntity> eventEntitesFound = eventRepository.findByName( name);
+//
+//    return eventEntitiesToEvents( eventEntitesFound);
+    return Collections.emptyList();
   }
 
   public List<Event> findByDate(Timestamp date)
   {
-    List<EventEntity> eventEntitesFound = eventRepository.findByDate( date);
-
-    return eventEntitiesToEvents( eventEntitesFound);
+//    List<EventEntity> eventEntitesFound = eventRepository.findByDate( date);
+//
+//    return eventEntitiesToEvents( eventEntitesFound);
+    return Collections.emptyList();
   }
 
   public Optional<Event> findByNameAndDate(String name, Timestamp date)
   {
+/*
     Optional<EventEntity> optionalEventEntityFound = eventRepository.findByNameAndDate( name, date);
 
     if ( optionalEventEntityFound.isPresent() )
@@ -128,7 +158,7 @@ public class EventService
 
       return Optional.of( new Event( optionalEventEntityFound.get(), monoEventPlace.block()));
     }
-
+*/
     return Optional.empty();
   }
 
@@ -155,19 +185,20 @@ public class EventService
    */
   public Event getOne(Long iD)
   {
-    // pt++ : using this way might give a slap the shit in the face ...
-    EventEntity eventEntityFound = eventRepository.getOne( iD);
-
-    Mono<EventPlace> monoEventPlace = eventPlaceServiceAccess.getById( eventEntityFound.getEventPlaceId());
-
-    return new Event( eventEntityFound, monoEventPlace.block());
+//    // pt++ : using this way might give a slap the shit in the face ...
+//    EventEntity eventEntityFound = eventRepository.getOne( iD);
+//
+//    Mono<EventPlace> monoEventPlace = eventPlaceServiceAccess.getById( eventEntityFound.getEventPlaceId());
+//
+//    return new Event( eventEntityFound, monoEventPlace.block());
+    return null;
   }
 
-  private List<Event> eventEntitiesToEvents( List<EventEntity> eventEntities)
-  {
-    return eventEntities.stream().map( eventEntity -> {
-                                                        Mono<EventPlace> monoEventPlace = eventPlaceServiceAccess.getById( eventEntity.getEventPlaceId());
-                                                        return new Event( eventEntity, monoEventPlace.block());
-                                                      }).collect( Collectors.toList());
-  }
+//  private List<Event> eventEntitiesToEvents( List<EventEntity> eventEntities)
+//  {
+//    return eventEntities.stream().map( eventEntity -> {
+//                                                        Mono<EventPlace> monoEventPlace = eventPlaceServiceAccess.getById( eventEntity.getEventPlaceId());
+//                                                        return new Event( eventEntity, monoEventPlace.block());
+//                                                      }).collect( Collectors.toList());
+//  }
 }

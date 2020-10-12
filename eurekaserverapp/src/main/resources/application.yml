@@ -1,25 +1,5 @@
-# pt++ : Based on : https://howtodoinjava.com/spring-cloud/spring-cloud-service-discovery-netflix-eureka/
 server:
   port: ${PORT:8761} # Indicate the default PORT where this service will be started
-
-spring:
-  application:
-    name: eurekaserverapp
-  cloud:
-    config:
-      server:
-        git:
-          uri: file:/${user.home}/projektek/TicketsOnline/ticketsonlinecfg
-          #      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
-#          username: trolley
-#          password: strongpassword
-          repos:
-            default: file:/${user.home}/projektek/TicketsOnline/ticketsonlinecfg
-#          cloneOnStart: true
-          skipSslValidation: true
-    loadbalancer:
-      ribbon:
-        enabled:false
 
 eureka:
   client:
@@ -27,7 +7,3 @@ eureka:
     fetchRegistry: false
   server:
     waitTimeInMsWhenSyncEmpty: 0    #wait time for subsequent sync
-
-management:
-  security:
-    enabled: false
