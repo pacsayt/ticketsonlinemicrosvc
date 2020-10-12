@@ -9,7 +9,7 @@ import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
 import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
 
 @Component
-public class EventAccess
+public class EventServiceAccess
 {
   @Autowired
   private WebClient webClient;

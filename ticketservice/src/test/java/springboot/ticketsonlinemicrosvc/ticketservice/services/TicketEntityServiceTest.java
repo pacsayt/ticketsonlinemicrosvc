@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.TicketEntity;
 
 import javax.persistence.EntityManager;
@@ -27,7 +28,7 @@ public class TicketEntityServiceTest
   @Test
   public void testFindExistingTicket()
   {
-    Optional<TicketEntity> optionalTicket = ticketService.findById( 11L);
+    Optional<Ticket> optionalTicket = ticketService.findById( 11L);
 
     assertTrue( optionalTicket.isPresent());
   }
@@ -37,7 +38,7 @@ public class TicketEntityServiceTest
   @Test
   public void testFindAllTickets()
   {
-    List<TicketEntity> optionalTicketEntity = ticketService.findAll();
+    List<Ticket> optionalTicketEntity = ticketService.findAll();
 
     assertEquals( 5, optionalTicketEntity.size()); // pt++ : if execution order of tc-s changes might get 6
   }
@@ -48,9 +49,9 @@ public class TicketEntityServiceTest
     Long ticketsCountBefore = ticketService.count();
 
 //    TicketEntity ticketEntityTobeDeleted = new TicketEntity( 33L, 0, null, 0); pt++ : won't delete as this occours in BookedTickets
-    TicketEntity ticketEntityTobeDeleted = new TicketEntity( 13L, 0, null, 0);
+    Ticket ticketTobeDeleted = new Ticket( 13L, 0, null, 0);
 
-    ticketService.delete(ticketEntityTobeDeleted);
+    ticketService.delete( ticketTobeDeleted);
 
     Long ticketsCountAfter = ticketService.count();
 

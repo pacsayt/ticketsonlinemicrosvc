@@ -1,4 +1,4 @@
-package springboot.ticketsonline.controllers;
+package springboot.ticketsonlinemicrosvc.eventservice.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
 import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
 import springboot.ticketsonlinemicrosvc.eventservice.controllers.EventController;
 import springboot.ticketsonlinemicrosvc.common.entities.event.Events;
@@ -87,8 +88,8 @@ public class EventEntityControllerTest extends TestBase // pt++ : -> @MockBean -
     // pt++ : Verifying HTTP Request Matching
 //    mockMvc.perform( post("/event").contentType( MediaType.APPLICATION_JSON))
 //                                             .andExpect( status().isOk());
-    EventEntity eventEntityExpected = new EventEntity( 11L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
-    Optional<EventEntity> optionalEventExpected = Optional.of(eventEntityExpected);
+    Event eventExpected = new Event( 11L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
+    Optional<Event> optionalEventExpected = Optional.of( eventExpected);
     when( mockEventService.findById( 11L)).thenReturn( optionalEventExpected);
 
     mockMvc.perform( get("/event/11").contentType( "application/json")).andExpect( status().isOk());
@@ -101,27 +102,27 @@ public class EventEntityControllerTest extends TestBase // pt++ : -> @MockBean -
   @Test
   public void testReturnedEvent() throws Exception
   {
-    EventEntity eventEntityExpected = new EventEntity( 11L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
+    Event eventExpected = new Event( 11L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
 
-    Optional<EventEntity> optionalEvent = Optional.of(eventEntityExpected);
+    Optional<Event> optionalEvent = Optional.of( eventExpected);
     when( mockEventService.findById( 11L)).thenReturn( optionalEvent);
 
     mockMvc.perform( get("/event/{id}", 11).contentType( "application/json"))
            .andExpect( status().isOk())
-           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson(eventEntityExpected, EventEntity.class));
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( eventExpected, EventEntity.class));
   }
 
   @Test
   public void testPassedParameter() throws Exception
   {
-    EventEntity eventEntityExpected = new EventEntity( 11L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
+    Event eventExpected = new Event( 11L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
 
-    Optional<EventEntity> optionalEvent = Optional.of(eventEntityExpected);
+    Optional<Event> optionalEvent = Optional.of( eventExpected);
     when( mockEventService.findById( 11L)).thenReturn( optionalEvent);
 
     mockMvc.perform( get("/event/{id}", 11).contentType( "application/json"))
            .andExpect( status().isOk())
-           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson(eventEntityExpected, EventEntity.class));
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( eventExpected, EventEntity.class));
 
     ArgumentCaptor<Long> eventIdArgumentCaptor = ArgumentCaptor.forClass( Long.class);
 
@@ -133,13 +134,13 @@ public class EventEntityControllerTest extends TestBase // pt++ : -> @MockBean -
   @Test
   public void testFindAllReturnedObjects() throws Exception
   {
-    List<EventEntity> eventEntityList = List.of( new EventEntity( 11L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null),
-                                     new EventEntity( 22L, "EventName_22", stringToDate( "2020-09-03 11:32:41.00"), null),
-                                     new EventEntity( 33L, "EventName_33", stringToDate( "2020-09-03 11:32:41.00"), null));
+    List<Event> eventList = List.of( new Event( 11L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null),
+                                           new Event( 22L, "EventName_22", stringToDate( "2020-09-03 11:32:41.00"), null),
+                                           new Event( 33L, "EventName_33", stringToDate( "2020-09-03 11:32:41.00"), null));
 
-    when( mockEventService.findAll()).thenReturn(eventEntityList);
+    when( mockEventService.findAll()).thenReturn( eventList);
 
-    Events events = new Events(eventEntityList);
+    Events events = new Events( eventList);
 
     mockMvc.perform( get( "/event").contentType( "application/json"))
            .andExpect( status().isOk())
@@ -149,16 +150,16 @@ public class EventEntityControllerTest extends TestBase // pt++ : -> @MockBean -
   @Test()
   public void testPostEvent() throws Exception
   {
-    EventEntity eventEntityToBeSaved = new EventEntity( 111L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
-    EventEntity eventEntitySaved = new EventEntity( 1L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
+    Event eventToBeSaved = new Event( 111L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
+    Event eventSaved = new Event( 1L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
 
-    when( mockEventService.save(eventEntityToBeSaved)).thenReturn(eventEntitySaved);
+    when( mockEventService.save( eventToBeSaved)).thenReturn( eventSaved);
 
     mockMvc.perform( post( "/event").
                      contentType( "application/json").
-                     content(objectMapper.writeValueAsString(eventEntityToBeSaved) )) // pt++ : @RequestBody
+                     content( objectMapper.writeValueAsString( eventToBeSaved) )) // pt++ : @RequestBody
            .andExpect( status().isOk())
-           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson(eventEntitySaved, EventEntity.class));
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( eventToBeSaved, EventEntity.class));
 
     verify( mockEventService, times( 1)).save( any());
 //    verify( mockEventService).save( any( EventEntity.class)).getName().compareTo( "EventName_11"); // pt++ : NPE
@@ -167,14 +168,14 @@ public class EventEntityControllerTest extends TestBase // pt++ : -> @MockBean -
   @Test
   public void testSerialization() throws Exception
   {
-    EventEntity eventEntityToBeSaved = new EventEntity( null, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
-    EventEntity eventEntitySaved = new EventEntity( 1L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
+    Event eventToBeSaved = new Event( 111L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
+    Event eventSaved = new Event( 1L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
 
-    when( mockEventService.save(eventEntityToBeSaved)).thenReturn(eventEntitySaved);
+    when( mockEventService.save( eventToBeSaved)).thenReturn( eventSaved);
 
     MvcResult mvcResult = mockMvc.perform( post( "/event")
                                  .contentType( "application/json")
-                                 .content(objectMapper.writeValueAsString(eventEntityToBeSaved) )) // pt++ : @RequestBody
+                                 .content(objectMapper.writeValueAsString( eventToBeSaved) )) // pt++ : @RequestBody
                                  .andReturn();
 
     System.out.println( "mvcResult : " + mvcResult);

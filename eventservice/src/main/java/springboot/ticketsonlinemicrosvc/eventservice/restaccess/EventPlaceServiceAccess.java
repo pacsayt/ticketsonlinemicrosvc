@@ -31,7 +31,7 @@ import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlaces;
  *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ !
  */
 @Component
-public class EventPlaceAccess
+public class EventPlaceServiceAccess
 {
   @Autowired
   private WebClient webClient; // = WebClient.create( "http://eventplaceservice");

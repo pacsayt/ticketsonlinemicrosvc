@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
+import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicket;
 import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicketEntity;
+import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
 import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
+import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
@@ -45,9 +49,9 @@ public class BookedTicketEntityEntityServiceTest extends TestBase
   @Test
   public void testfindAll()
   {
-    List<BookedTicketEntity> listBookedTicketEntities = bookedTicketService.findAll();
+    List<BookedTicket> listBookedTicket = bookedTicketService.findAll();
 
-    assertEquals( 2, listBookedTicketEntities.size());
+    assertEquals( 2, listBookedTicket.size());
   }
 
   @Test
@@ -68,15 +72,15 @@ public class BookedTicketEntityEntityServiceTest extends TestBase
 //    TicketEntity ticketToSave = new TicketEntity( 0L, 55, eventSaved, 55);
 //
 //    TicketEntity ticketSaved = ticketService.save( ticketToSave);
-//    EventPlace eventPlaceToSave = new EventPlace( 111L, "Name_55", 110);
-//    EventEntity eventToSave = new EventEntity( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), 111L); // pt++ : bcause of microservice
-//    TicketEntity ticketToSave = new TicketEntity( 0L, 55, 55L, 55);
+    EventPlace eventPlaceToSave = new EventPlace( 111L, "Name_55", 110);
+    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceToSave); // pt++ : bcause of microservice
+    Ticket ticketToSave = new Ticket( 0L, 55, eventToSave, 55);
 
-    BookedTicketEntity bookedTicketEntityToBeSaved = new BookedTicketEntity( 0L, 55L);
+    BookedTicket bookedTicketToBeSaved = new BookedTicket( 0L, ticketToSave);
 
-    BookedTicketEntity bookedTicketEntitySaved = bookedTicketService.save(bookedTicketEntityToBeSaved);
+    BookedTicket bookedTicketSaved = bookedTicketService.save( bookedTicketToBeSaved);
 
-    Optional<BookedTicketEntity> optionalBookedTicket = bookedTicketService.findById( bookedTicketEntitySaved.getiD());
+    Optional<BookedTicket> optionalBookedTicket = bookedTicketService.findById( bookedTicketSaved.getiD());
 
     assertTrue( optionalBookedTicket.isPresent());
   }
@@ -84,13 +88,13 @@ public class BookedTicketEntityEntityServiceTest extends TestBase
   @Test
   public void testFindByBookedTicketEvent() throws ParseException
   {
-//    EventPlace eventPlaceSearched = new EventPlace( 111L, "Name_55", 110); // (Long iniID, String iniName, Integer iniNoOfSeats) pt++ : microservices
+    EventPlace eventPlaceSearched = new EventPlace( 111L, "Name_55", 110); // (Long iniID, String iniName, Integer iniNoOfSeats) pt++ : microservices
 
-    EventEntity eventEntitySearchCriteria = new EventEntity( 22L, "EventName_22", stringToDate( "2020-09-03 11:32:41.00"), 22L);
+    Event eventSearchCriteria = new Event( 22L, "EventName_22", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceSearched);
 
-    List<BookedTicketEntity> bookedTicketsForEventEntity = bookedTicketService.findByBookedTicketEvent(eventEntitySearchCriteria);
+    List<BookedTicket> bookedTicketsForEvent = bookedTicketService.findByBookedTicketEvent( eventSearchCriteria);
 
-    assertEquals( 22L, bookedTicketsForEventEntity.get( 0).getiD());
+    assertEquals( 22L, bookedTicketsForEvent.get( 0).getiD());
   }
 
   @Test

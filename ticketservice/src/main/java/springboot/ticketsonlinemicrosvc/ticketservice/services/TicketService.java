@@ -8,7 +8,7 @@ import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.TicketEntity;
 import springboot.ticketsonlinemicrosvc.ticketservice.repositories.TicketRepository;
-import springboot.ticketsonlinemicrosvc.ticketservice.restaccess.EventAccess;
+import springboot.ticketsonlinemicrosvc.ticketservice.restaccess.EventServiceAccess;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class TicketService
   private TicketRepository ticketRepository;
 
   @Autowired
-  private EventAccess eventAccess;
+  private EventServiceAccess eventServiceAccess;
 
   public Long count()
   {
@@ -50,7 +50,7 @@ public class TicketService
 
   public Ticket save( Ticket ticketToBeSaved)
   {
-    Mono<Event> eventSavedMono = eventAccess.put( ticketToBeSaved.getEvent());
+    Mono<Event> eventSavedMono = eventServiceAccess.put( ticketToBeSaved.getEvent());
 
     Event eventSaved = eventSavedMono.block();
 
@@ -65,7 +65,7 @@ public class TicketService
   {
     List<Ticket> allTickets = new ArrayList<>();
 
-    Flux<Event> allEventFlux = eventAccess.getAll();
+    Flux<Event> allEventFlux = eventServiceAccess.getAll();
 
     for ( TicketEntity ticketEntity: ticketRepository.findAll() )
     {
@@ -89,7 +89,7 @@ public class TicketService
 
     if ( ticketEntityFoundOptional.isPresent() )
     {
-      Mono<Event> eventFoundMono = eventAccess.getById( ticketEntityFoundOptional.get().getEventId());
+      Mono<Event> eventFoundMono = eventServiceAccess.getById( ticketEntityFoundOptional.get().getEventId());
 
       return Optional.of( new Ticket( ticketEntityFoundOptional.get(), eventFoundMono.block()));
     }
@@ -105,7 +105,7 @@ public class TicketService
 
     for ( TicketEntity ticketEntity : ticketsFounfByEventId )
     {
-      Mono<Event> eventFoundMono = eventAccess.getById( eventId);
+      Mono<Event> eventFoundMono = eventServiceAccess.getById( eventId);
       Event eventFound = eventFoundMono.block();
 
       allTickets.add( new Ticket( ticketEntity, eventFound));
@@ -125,7 +125,7 @@ public class TicketService
 
     if ( ticketEntityFoundOptional.isPresent() )
     {
-      Mono<Event> eventFoundMono = eventAccess.getById( ticketEntityFoundOptional.get().getEventId());
+      Mono<Event> eventFoundMono = eventServiceAccess.getById( ticketEntityFoundOptional.get().getEventId());
 
       return new Ticket( ticketEntityFoundOptional.get(), eventFoundMono.block());
     }

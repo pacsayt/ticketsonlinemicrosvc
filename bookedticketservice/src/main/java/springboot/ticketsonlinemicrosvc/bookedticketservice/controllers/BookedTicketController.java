@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
+import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicket;
 import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicketEntity;
 import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTickets;
 
@@ -23,26 +24,26 @@ public class BookedTicketController
   }
 
   @GetMapping( path="{bookedTicketId}", produces = "application/json")
-  public BookedTicketEntity getById(@PathVariable Long bookedTicketId)
+  public BookedTicket getById(@PathVariable Long bookedTicketId)
   {
-    BookedTicketEntity bookedTicketEntityFound = bookedTicketService.findById( bookedTicketId).orElseGet( () -> new BookedTicketEntity());
+    BookedTicket bookedTicketFound = bookedTicketService.findById( bookedTicketId).orElseGet( () -> new BookedTicket());
 
-    return bookedTicketEntityFound;
+    return bookedTicketFound;
   }
 
   @PostMapping()
-  public ResponseEntity<Optional<BookedTicketEntity>> post(@RequestBody BookedTicketEntity bookedTicketEntity)
+  public ResponseEntity<Optional<BookedTicket>> post(@RequestBody BookedTicket bookedTicket)
   {
-    BookedTicketEntity bookedTicketEntityAfterSave = bookedTicketService.save(bookedTicketEntity);
+    BookedTicket bookedTicketEntityAfterSave = bookedTicketService.save( bookedTicket);
 
     return ResponseEntity.ok( Optional.of(bookedTicketEntityAfterSave));
   }
 
   @PutMapping()
-  public ResponseEntity<Optional<BookedTicketEntity>> put(@RequestBody BookedTicketEntity bookedTicketEntity)
+  public ResponseEntity<Optional<BookedTicket>> put(@RequestBody BookedTicket bookedTicket)
   {
-    BookedTicketEntity bookedTicketEntityAfterSave = bookedTicketService.save(bookedTicketEntity);
+    BookedTicket bookedTicketEntityAfterSave = bookedTicketService.save( bookedTicket);
 
-    return ResponseEntity.ok( Optional.of(bookedTicketEntityAfterSave));
+    return ResponseEntity.ok( Optional.of( bookedTicketEntityAfterSave));
   }
 }

@@ -3,10 +3,7 @@ package springboot.ticketsonlinemicrosvc.eventservice.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
 import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
@@ -14,7 +11,7 @@ import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
 import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlaces;
 import springboot.ticketsonlinemicrosvc.eventservice.controllers.EventController;
 import springboot.ticketsonlinemicrosvc.eventservice.repositories.EventRepository;
-import springboot.ticketsonlinemicrosvc.eventservice.restaccess.EventPlaceAccess;
+import springboot.ticketsonlinemicrosvc.eventservice.restaccess.EventPlaceServiceAccess;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -31,7 +28,7 @@ public class EventService
   private EventRepository eventRepository;
 
   @Autowired
-  EventPlaceAccess eventPlaceAccess;
+  EventPlaceServiceAccess eventPlaceServiceAccess;
 
   public Long count()
   {
@@ -42,7 +39,7 @@ public class EventService
   {
     EventPlace eventPlaceToSave = eventToSave.getEventPlace();
 
-    Mono<EventPlace> eventPlaceSavedMono = eventPlaceAccess.post( eventPlaceToSave);
+    Mono<EventPlace> eventPlaceSavedMono = eventPlaceServiceAccess.post( eventPlaceToSave);
 
     EventPlace eventPlaceSaved = eventPlaceSavedMono.block();
 
@@ -65,7 +62,7 @@ public class EventService
 
       LOG.info("EventService::findById( " + iD + ") -> eventPlaceId : " + eventPlaceId + " +++++++++++++++++++++++++++++++++++++++++++++ ");
 
-      Mono<EventPlace> entityMono = eventPlaceAccess.getById( eventPlaceId);
+      Mono<EventPlace> entityMono = eventPlaceServiceAccess.getById( eventPlaceId);
 
       EventPlace eventPlace = entityMono.block();
 
@@ -85,7 +82,7 @@ public class EventService
   {
     List<Event> allEvents = new ArrayList<>();
 
-    Mono<EventPlaces> eventPlacesMono = eventPlaceAccess.getAll();
+    Mono<EventPlaces> eventPlacesMono = eventPlaceServiceAccess.getAll();
 
     List<EventEntity> allEventEntities = eventRepository.findAll();
 
@@ -127,7 +124,7 @@ public class EventService
 
     if ( optionalEventEntityFound.isPresent() )
     {
-      Mono<EventPlace> monoEventPlace = eventPlaceAccess.getById( optionalEventEntityFound.get().getEventPlaceId());
+      Mono<EventPlace> monoEventPlace = eventPlaceServiceAccess.getById( optionalEventEntityFound.get().getEventPlaceId());
 
       return Optional.of( new Event( optionalEventEntityFound.get(), monoEventPlace.block()));
     }
@@ -161,7 +158,7 @@ public class EventService
     // pt++ : using this way might give a slap the shit in the face ...
     EventEntity eventEntityFound = eventRepository.getOne( iD);
 
-    Mono<EventPlace> monoEventPlace = eventPlaceAccess.getById( eventEntityFound.getEventPlaceId());
+    Mono<EventPlace> monoEventPlace = eventPlaceServiceAccess.getById( eventEntityFound.getEventPlaceId());
 
     return new Event( eventEntityFound, monoEventPlace.block());
   }
@@ -169,7 +166,7 @@ public class EventService
   private List<Event> eventEntitiesToEvents( List<EventEntity> eventEntities)
   {
     return eventEntities.stream().map( eventEntity -> {
-                                                        Mono<EventPlace> monoEventPlace = eventPlaceAccess.getById( eventEntity.getEventPlaceId());
+                                                        Mono<EventPlace> monoEventPlace = eventPlaceServiceAccess.getById( eventEntity.getEventPlaceId());
                                                         return new Event( eventEntity, monoEventPlace.block());
                                                       }).collect( Collectors.toList());
   }

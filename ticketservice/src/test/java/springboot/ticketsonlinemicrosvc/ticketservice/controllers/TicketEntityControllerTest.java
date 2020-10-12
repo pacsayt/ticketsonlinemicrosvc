@@ -10,9 +10,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
+import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.TicketEntity;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.Tickets;
-import springboot.ticketsonline.services.TestBase;
+import springboot.ticketsonlinemicrosvc.ticketservice.services.TestBase;
 import springboot.ticketsonlinemicrosvc.ticketservice.services.TicketService;
 
 import java.util.List;
@@ -42,16 +45,15 @@ public class TicketEntityControllerTest extends TestBase
   @Test
   public void testFindOneById() throws Exception
   {
-//    EventPlace eventPlaceReturnedByService =  new EventPlace( 111L, "Name_1", 10);
-//    EventEntity eventReturnedByService = new EventEntity( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceReturnedByService);
-    TicketEntity ticketEntityReturnedByService = new TicketEntity( 11L, 1, 11L, 111);
+    EventPlace eventPlaceReturnedByService =  new EventPlace( 111L, "Name_1", 10);
+    Event eventReturnedByService = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceReturnedByService);
+    Ticket ticketReturnedByService = new Ticket( 11L, 1, eventReturnedByService, 111);
 
-    when( mockTicketService.findById( 11L)).thenReturn( Optional.of(ticketEntityReturnedByService));
+    when( mockTicketService.findById( 11L)).thenReturn( Optional.of( ticketReturnedByService));
 
     mockMvc.perform( get( "/ticket/{id}", 11L).contentType( "application/json"))
-
            .andExpect( status().isOk())
-           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson(ticketEntityReturnedByService, TicketEntity.class));
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( ticketReturnedByService, TicketEntity.class));
 
     verify( mockTicketService, times( 1)).findById( 11L);
   }
@@ -59,14 +61,14 @@ public class TicketEntityControllerTest extends TestBase
   @Test
   public void testFindAll() throws Exception
   {
-    List<TicketEntity> ticketEntityList = List.of( new TicketEntity( 10L, 2, null, 100),
-            new TicketEntity( 11L, 1, null, 111),
-            new TicketEntity( 12L, 3, null, 112),
-            new TicketEntity( 13L, 4, null, 113));
+    List<Ticket> ticketList = List.of( new Ticket( 10L, 2, null, 100),
+                                       new Ticket( 11L, 1, null, 111),
+                                       new Ticket( 12L, 3, null, 112),
+                                       new Ticket( 13L, 4, null, 113));
 
-    when( mockTicketService.findAll()).thenReturn(ticketEntityList);
+    when( mockTicketService.findAll()).thenReturn( ticketList);
 
-    Tickets tickets = new Tickets(ticketEntityList);
+    Tickets tickets = new Tickets( ticketList);
 
     mockMvc.perform( get( "/ticket").contentType( MediaType.APPLICATION_JSON))
             .andExpect( status().isOk())
@@ -76,34 +78,34 @@ public class TicketEntityControllerTest extends TestBase
   @Test
   public void testPost() throws Exception
   {
-    TicketEntity ticketEntityToSave = new TicketEntity( 11L, 1, null, 111);
-    TicketEntity ticketEntityAfterSave = new TicketEntity( 1L, 1, null, 111);
+    Ticket ticketToSave = new Ticket( 11L, 1, null, 111);
+    Ticket ticketAfterSave = new Ticket( 1L, 1, null, 111);
 
-    when( mockTicketService.save(ticketEntityToSave)).thenReturn(ticketEntityAfterSave);
+    when( mockTicketService.save( ticketToSave)).thenReturn( ticketAfterSave);
 
     mockMvc.perform( post( "/ticket").
                      contentType( MediaType.APPLICATION_JSON).
-                     content( objectMapper.writeValueAsString(ticketEntityToSave)))
+                     content( objectMapper.writeValueAsString( ticketToSave)))
            .andExpect( status().isOk())
-           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson(ticketEntityAfterSave, TicketEntity.class));
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( ticketAfterSave, TicketEntity.class));
 
-    verify( mockTicketService, times( 1)).save(ticketEntityToSave);
+    verify( mockTicketService, times( 1)).save( ticketToSave);
   }
 
   @Test
   public void testPut() throws Exception
   {
-    TicketEntity ticketEntityToSave = new TicketEntity( 11L, 1, null, 111);
-    TicketEntity ticketEntityAfterSave = new TicketEntity( 11L, 1, null, 111);
+    Ticket ticketToSave = new Ticket( 11L, 1, null, 111);
+    Ticket ticketAfterSave = new Ticket( 11L, 1, null, 111);
 
-    when( mockTicketService.save( any())).thenReturn(ticketEntityAfterSave);
+    when( mockTicketService.save( any())).thenReturn( ticketAfterSave);
 
     mockMvc.perform( put( "/ticket").
                      contentType( MediaType.APPLICATION_JSON).
-                     content( objectMapper.writeValueAsString(ticketEntityToSave)))
+                     content( objectMapper.writeValueAsString( ticketToSave)))
             .andExpect( status().isOk())
 //            .andExpect( jsonPath("id", is( 11L)))
-            .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson(ticketEntityAfterSave, TicketEntity.class));
+            .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( ticketAfterSave, TicketEntity.class));
 
 //    ArgumentCaptor<TicketEntity> ticketArgCapt = ArgumentCaptor.forClass( TicketEntity.class);
 
