@@ -1,13 +1,18 @@
 package springboot.ticketsonlinemicrosvc.eventservice.restaccess;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
 import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlaces;
+import springboot.ticketsonlinemicrosvc.eventservice.feignclients.EventPlaceControllerInterface;
 
 /**
  * Spring 5 WebClient
@@ -28,14 +33,21 @@ import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlaces;
  *  Moving forward, RestTemplate will be deprecated in future versions. !
  *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ !
  */
-@Component
+@RefreshScope
+@RestController
+// @Component
 public class EventPlaceServiceAccess
 {
+  private static final Logger LOG = LoggerFactory.getLogger( EventPlaceServiceAccess.class);
+
   @Autowired
   private WebClient webClient; // = WebClient.create( "http://eventplaceservice");
 
   @Autowired
   private RestTemplate restTemplate;
+
+  @Autowired
+  private EventPlaceControllerInterface eventPlaceController;
 
   // https://howtodoinjava.com/spring-webflux/webclient-get-post-example/
 
@@ -53,9 +65,15 @@ public class EventPlaceServiceAccess
 //                    .bodyToMono( EventPlace.class);
 //  }
 
+//  public EventPlace getById( Long eventPlaceId)
+//  {
+//    return restTemplate.getForObject( "http://eventplaceservice/eventplace/" + eventPlaceId, EventPlace.class);
+//  }
+
   public EventPlace getById( Long eventPlaceId)
   {
-    return restTemplate.getForObject( "http://eventplaceservice/eventplace/" + eventPlaceId, EventPlace.class);
+    LOG.info( "EventPlaceServiceAccess::getById() : eventPlaceId=" + eventPlaceId + " +++++++++++++++++++++++++++++");
+    return eventPlaceController.getById( eventPlaceId);
   }
 
   /**

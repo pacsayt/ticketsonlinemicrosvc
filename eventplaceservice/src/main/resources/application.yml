@@ -5,9 +5,12 @@ eureka:         #tells about the Eureka server details and its refresh time
   instance:
     leaseRenewalIntervalInSeconds: 5
     leaseExpirationDurationInSeconds: 2
+    preferIpAddress: true # https://www.baeldung.com/spring-cloud-netflix-eureka
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    registerWithEureka: true # register with the server (true : default value)
+    fetchRegistry: true      # Eureka client will try to fetch registry (true : default value)
     healthcheck:
       enabled: true
     lease:

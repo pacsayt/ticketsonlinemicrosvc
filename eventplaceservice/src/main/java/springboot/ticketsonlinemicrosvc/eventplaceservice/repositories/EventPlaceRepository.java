@@ -13,11 +13,12 @@ import java.util.List;
 @Repository
 public interface EventPlaceRepository extends JpaRepository<EventPlace, Long>
 {
-  List<EventPlace> findByNameContainingIgnoreCase(String name);
+  List<EventPlace> findByNameContainingIgnoreCase(String name); // pt++ TODO : Did neither find a NamedQuery nor an annotated query for method
 
-  List<EventPlace> findFirst2ByNameContainingIgnoreCase(String name);
+//  List<EventPlace> findFirst2ByNameContainingIgnoreCase(String name); // pt++ TODO : Did neither find a NamedQuery nor an annotated query for method
+  // public abstract java.util.List **.repositories.EventPlaceRepository.findFirst2ByNameContainingIgnoreCase(java.lang.String)!
 
-  List<EventPlace> findByNameContainingIgnoreCaseOrderByNameAsc(String name);
+//  List<EventPlace> findByNameContainingIgnoreCaseOrderByNameAsc(String name); // pt++ TODO : Did neither find a NamedQuery nor an annotated query for method
 
   // Sort sort = new Sort(Sort.Direction.ASC, "name");
   // List<Book> findByNameContains(String name, Sort sort);

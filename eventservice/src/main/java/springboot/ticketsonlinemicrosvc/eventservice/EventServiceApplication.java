@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -49,6 +50,7 @@ import org.springframework.context.annotation.Bean;
 @EnableEurekaClient
 @EnableHystrixDashboard
 @EnableCircuitBreaker
+@EnableFeignClients
 public class EventServiceApplication
 {
 	public static void main(String[] args)
@@ -61,4 +63,4 @@ public class EventServiceApplication
 	{ // pt++ : a loggolas kozponti helyen (Sleuth ? Zipkin) valo megjelenitesehez kell
 		return Sampler.ALWAYS_SAMPLE; // pt++ : https://cloud.spring.io/spring-cloud-sleuth/2.0.x/multi/multi__sampling.html
 	}
- }
+}

@@ -49,12 +49,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-config</artifactId>
@@ -65,8 +63,18 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+      <artifactId>spring-cloud-openfeign-core</artifactId>
+<!--      <version>2.2.4.RELEASE</version> -->
     </dependency>
+
+      <dependency> <!-- pt++ : this mihght have compatibility issues as it uses explicit (probably way too old) version -->
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter-feign</artifactId>
+          <version>1.4.0.RELEASE</version>
+      </dependency>
+
+
+
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
@@ -92,7 +100,8 @@
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
     </dependency>
-    <!-- TEST +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!-- TEST +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
