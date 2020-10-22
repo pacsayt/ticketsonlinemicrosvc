@@ -7,7 +7,11 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 
 /**
- *                                http://localhost:8761/
+ *  Eureka server :
+ *  http://localhost:8761/
+ *
+ *  Configuration can be tested :
+ *  http://localhost:8761/config/eventservice/default/
  */
 @SpringBootApplication
 public class EurekaserverappApplication

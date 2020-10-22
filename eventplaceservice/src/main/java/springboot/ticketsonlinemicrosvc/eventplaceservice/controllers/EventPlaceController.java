@@ -2,6 +2,8 @@ package springboot.ticketsonlinemicrosvc.eventplaceservice.controllers;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +17,17 @@ import java.util.Optional;
 /**
  * http://localhost:8011/eventplace/
  * http://localhost:8011/eventplace/11
+ * http://localhost:8011/eventplace/config : prints out the parameter got from configuration server
  */
 
+@RefreshScope                       // pt++ : https://spring.io/guides/gs/centralized-configuration/
 @RestController                     // pt++ : you cannot specify root path here (it seems)
 @RequestMapping( path="eventplace") // pt++ : root path must be specified separately path == value aliasses
 public class EventPlaceController
 {
+  @Value( "${parameter:default value}")
+  private String parameter;
+
   @Autowired
   private EventPlaceService eventPlaceService;
 
@@ -88,5 +95,11 @@ public class EventPlaceController
   public ResponseEntity<Object> putFallback( @RequestBody EventPlace eventPlace)
   {
     return ResponseEntity.status( HttpStatus.INTERNAL_SERVER_ERROR).build();
+  }
+
+  @RequestMapping( path = "/config")
+  public String getConfig()
+  {
+    return parameter;
   }
 }

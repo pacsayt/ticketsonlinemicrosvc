@@ -1,3 +1,5 @@
+# pt++ : config.server.prefix:  if using Eureka & Config servers in the same program to avoid clash
+#        (https://stackoverflow.com/questions/33416103/running-spring-clound-config-and-eureka-on-same-server)
 server:
   port: ${PORT:8761} # Indicate the default PORT where this service will be started
 
@@ -7,8 +9,12 @@ spring:
   cloud:
     config:
       server:
+        health:
+          config:
+            enabled: false
+        prefix: /config
         git:
-          uri: file://home/tamas/projektek/TicketsOnline/ticketsonlinecfg # pt++ : must be in this file or else it won't work
+          uri: /home/tamas/projektek/TicketsOnline/ticketsonlinecfg # pt++ : must be in this file or else it won't work
 
 eureka:
   client:
@@ -16,3 +22,7 @@ eureka:
     fetchRegistry: false        # The inbuilt client will try to fetch the Eureka registry if we configure this property as true (default).
   server:
     waitTimeInMsWhenSyncEmpty: 0    #wait time for subsequent sync
+
+logging:
+  level:
+    root: DEBUG

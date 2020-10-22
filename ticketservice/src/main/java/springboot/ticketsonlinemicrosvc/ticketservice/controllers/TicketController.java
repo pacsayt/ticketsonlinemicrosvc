@@ -1,6 +1,7 @@
 package springboot.ticketsonlinemicrosvc.ticketservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
@@ -16,6 +17,9 @@ public class TicketController
 {
   @Autowired
   private TicketService ticketService;
+
+  @Value( "${parameter}")
+  private String parameter;
 
   @GetMapping
   public Tickets getAll()
@@ -45,5 +49,11 @@ public class TicketController
     Ticket ticketUpdated = ticketService.save( ticket);
 
     return ResponseEntity.ok( Optional.of( ticketUpdated));
+  }
+
+  @GetMapping( path = "/config")
+  public String getConfig()
+  {
+    return parameter;
   }
 }

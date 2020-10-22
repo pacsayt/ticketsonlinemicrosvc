@@ -4,7 +4,7 @@
 # Specify the client’s spring.application.name and the location of the Config Server (spring.cloud.config.uri) in configuration-client/src/main/resources/bootstrap.properties, where it will be loaded earlier than any other configuration.
 spring:
   application:
-    name: eventplaceservice
+    name: ticketservice
   cloud:
     config:
       uri: http://localhost:8761/config

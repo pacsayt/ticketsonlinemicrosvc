@@ -44,4 +44,4 @@ management:
 
 logging:
   level:
-    springboot.ticketsonlinemicrosvc.eventplaceservice: DEBUG
+    springboot.ticketsonlinemicrosvc.eventplaceservice: INFO

@@ -1,6 +1,7 @@
 package springboot.ticketsonlinemicrosvc.bookedticketservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
@@ -14,6 +15,9 @@ import java.util.Optional;
 @RequestMapping( path="bookedticket")
 public class BookedTicketController
 {
+  @Value( "${parameter}")
+  private String parameter;
+
   @Autowired
   private BookedTicketService bookedTicketService;
 
@@ -45,5 +49,11 @@ public class BookedTicketController
     BookedTicket bookedTicketEntityAfterSave = bookedTicketService.save( bookedTicket);
 
     return ResponseEntity.ok( Optional.of( bookedTicketEntityAfterSave));
+  }
+
+  @GetMapping( path = "/config")
+  public String getConfig()
+  {
+    return parameter;
   }
 }
