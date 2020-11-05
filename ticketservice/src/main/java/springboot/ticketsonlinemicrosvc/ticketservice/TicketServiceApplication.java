@@ -1,11 +1,17 @@
 package springboot.ticketsonlinemicrosvc.ticketservice;
 
+import brave.sampler.Sampler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
 
 /**
  *
- *
+ * http://localhost:8013/ticket/
  *
  * Spring Boot With H2 Database
  * https://www.baeldung.com/spring-boot-h2-database
@@ -39,12 +45,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
+@EnableEurekaClient
+@EnableHystrixDashboard
+@EnableCircuitBreaker
+@EnableFeignClients
 public class TicketServiceApplication
 {
   public static void main(String[] args)
   {
     SpringApplication.run(TicketServiceApplication.class, args);
+  }
 
-    while (true){}
+  @Bean
+  public Sampler getSampler()
+  {
+    // pt++ : for centralized logging (Sleuth ? Zipkin)
+    return Sampler.ALWAYS_SAMPLE; // pt++ : https://cloud.spring.io/spring-cloud-sleuth/2.0.x/multi/multi__sampling.html
   }
 }

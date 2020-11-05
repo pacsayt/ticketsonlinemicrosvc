@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
+ * Introduction to Spring Cloud Netflix – Eureka
+ * https://www.baeldung.com/spring-cloud-netflix-eureka
+ *
  * Client Side Load Balancing with Ribbon and Spring Cloud : pt++ : better than average guides
  * https://spring.io/guides/gs/client-side-load-balancing/
  */
@@ -32,8 +35,3 @@ public class ConfigureWebMvC
     return WebClient.builder();
   }
 }
-
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  Introduction to Spring Cloud Netflix – Eureka
-        https://www.baeldung.com/spring-cloud-netflix-eureka
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

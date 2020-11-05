@@ -1,4 +1,4 @@
-package springboot.ticketsonlinemicrosvc.eventservice.configuration;
+package springboot.ticketsonlinemicrosvc.ticketservice.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,24 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class ConfigureRestTemplate
 {
-  private static final Logger LOG = LoggerFactory.getLogger( ConfigureRestTemplate.class);
-
-  // pt++ : WebClient is preferred to RestTemplate as the latter will be rolled out
-  @Bean
-  @LoadBalanced  // pt++ : this makes Eureka work ...
-  public WebClient webClient()
-  {
-    LOG.info( "ConfigureRestTemplate::webClient() ---------------------------------------------------------------------");
-
-    return WebClient.create();
-  }
-
-  @Bean
-  @LoadBalanced
-  public WebClient.Builder getWebClientBuilder()
-  {
-    return WebClient.builder();
-  }
+  private static final Logger LOG = LoggerFactory.getLogger( springboot.ticketsonlinemicrosvc.eventservice.configuration.ConfigureRestTemplate.class);
 
   @Bean
   @LoadBalanced // pt++ : this makes Eureka work ...

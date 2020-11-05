@@ -18,6 +18,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
 /**
+ * http://localhost:8011/h2-console
+ *
+ *
+ * https://howtodoinjava.com/spring-cloud/microservices-monitoring/
+ *
  * pt++ : ++
  * https://www.baeldung.com/spring-cloud-netflix-eureka
  *

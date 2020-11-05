@@ -32,4 +32,7 @@ public interface EventPlaceControllerInterface
 
   @PutMapping() // pt++ : PUT - update
   ResponseEntity<Optional<EventPlace>> put(@RequestBody EventPlace eventPlace);
+
+  @DeleteMapping()
+  void delete(@RequestBody EventPlace eventPlace);
 }

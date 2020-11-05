@@ -60,7 +60,8 @@ public class EventServiceApplication
 
 	@Bean
 	public Sampler getSampler()
-	{ // pt++ : a loggolas kozponti helyen (Sleuth ? Zipkin) valo megjelenitesehez kell
+	{
+		// pt++ : for centralized logging (Sleuth ? Zipkin)
 		return Sampler.ALWAYS_SAMPLE; // pt++ : https://cloud.spring.io/spring-cloud-sleuth/2.0.x/multi/multi__sampling.html
 	}
 }

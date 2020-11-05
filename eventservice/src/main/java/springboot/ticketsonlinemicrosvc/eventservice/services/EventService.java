@@ -40,9 +40,7 @@ public class EventService
   {
     EventPlace eventPlaceToSave = eventToSave.getEventPlace();
 
-    Mono<EventPlace> eventPlaceSavedMono = eventPlaceServiceAccess.post( eventPlaceToSave);
-
-    EventPlace eventPlaceSaved = eventPlaceSavedMono.block();
+    EventPlace eventPlaceSaved = eventPlaceServiceAccess.post( eventPlaceToSave);
 
     EventEntity eventEntityToSave = new EventEntity( eventToSave, eventPlaceSaved.getId());
 
@@ -109,11 +107,9 @@ public class EventService
   {
     List<Event> allEvents = new ArrayList<>();
 
-    Mono<EventPlaces> eventPlacesMono = eventPlaceServiceAccess.getAll();
+    EventPlaces eventPlaces = eventPlaceServiceAccess.getAll();
 
     List<EventEntity> allEventEntities = eventRepository.findAll();
-
-    EventPlaces eventPlaces = eventPlacesMono.block();
 
     for( EventEntity ee : allEventEntities )
     {
@@ -133,32 +129,31 @@ public class EventService
 
   public List<Event> findByName(String name)
   {
-//    List<EventEntity> eventEntitesFound = eventRepository.findByName( name);
-//
-//    return eventEntitiesToEvents( eventEntitesFound);
-    return Collections.emptyList();
+    List<EventEntity> eventEntitesFound = eventRepository.findByName( name);
+
+    return eventEntitiesToEvents( eventEntitesFound);
+//    return Collections.emptyList();
   }
 
   public List<Event> findByDate(Timestamp date)
   {
-//    List<EventEntity> eventEntitesFound = eventRepository.findByDate( date);
-//
-//    return eventEntitiesToEvents( eventEntitesFound);
-    return Collections.emptyList();
+    List<EventEntity> eventEntitesFound = eventRepository.findByDate( date);
+
+    return eventEntitiesToEvents( eventEntitesFound);
   }
 
   public Optional<Event> findByNameAndDate(String name, Timestamp date)
   {
-/*
+
     Optional<EventEntity> optionalEventEntityFound = eventRepository.findByNameAndDate( name, date);
 
     if ( optionalEventEntityFound.isPresent() )
     {
-      Mono<EventPlace> monoEventPlace = eventPlaceServiceAccess.getById( optionalEventEntityFound.get().getEventPlaceId());
+      EventPlace eventPlace = eventPlaceServiceAccess.getById( optionalEventEntityFound.get().getEventPlaceId());
 
-      return Optional.of( new Event( optionalEventEntityFound.get(), monoEventPlace.block()));
+      return Optional.of( new Event( optionalEventEntityFound.get(), eventPlace));
     }
-*/
+
     return Optional.empty();
   }
 
@@ -194,11 +189,11 @@ public class EventService
     return null;
   }
 
-//  private List<Event> eventEntitiesToEvents( List<EventEntity> eventEntities)
-//  {
-//    return eventEntities.stream().map( eventEntity -> {
-//                                                        Mono<EventPlace> monoEventPlace = eventPlaceServiceAccess.getById( eventEntity.getEventPlaceId());
-//                                                        return new Event( eventEntity, monoEventPlace.block());
-//                                                      }).collect( Collectors.toList());
-//  }
+  private List<Event> eventEntitiesToEvents( List<EventEntity> eventEntities)
+  {
+    return eventEntities.stream().map( eventEntity -> {
+                                                        EventPlace eventPlace = eventPlaceServiceAccess.getById( eventEntity.getEventPlaceId());
+                                                        return new Event( eventEntity, eventPlace);
+                                                      }).collect( Collectors.toList());
+  }
 }

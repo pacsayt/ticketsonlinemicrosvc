@@ -6,6 +6,9 @@ server:
 spring:
   application:
     name: eurekaserver
+  boot:
+    admin:
+      context-path: /admin  # pt++ : still won't work A different context path for Spring boot admin server has been provided avoiding conflict with eureka
   cloud:
     config:
       server:
@@ -25,4 +28,4 @@ eureka:
 
 logging:
   level:
-    root: DEBUG
+    root: INFO

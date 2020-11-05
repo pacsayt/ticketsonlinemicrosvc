@@ -22,7 +22,7 @@ public class EventController
   @Autowired
   private EventService eventService;
 
-  @Value( "${parameter}")
+  @Value( "${parameter:default value}")
   private String parameter;
 
   @GetMapping

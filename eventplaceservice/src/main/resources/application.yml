@@ -30,7 +30,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+#      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy # pt++ : default : SpringNamingStrategy
   h2:
     console:
       enabled: true
@@ -45,3 +45,5 @@ management:
 logging:
   level:
     springboot.ticketsonlinemicrosvc.eventplaceservice: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: DEBUG

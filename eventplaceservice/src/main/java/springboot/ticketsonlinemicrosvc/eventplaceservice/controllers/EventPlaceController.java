@@ -97,6 +97,13 @@ public class EventPlaceController
     return ResponseEntity.status( HttpStatus.INTERNAL_SERVER_ERROR).build();
   }
 
+  @DeleteMapping()
+  @HystrixCommand(fallbackMethod = "putFallback")
+  public void delete( @RequestBody EventPlace eventPlace)
+  {
+    eventPlaceService.delete( eventPlace);
+  }
+
   @RequestMapping( path = "/config")
   public String getConfig()
   {

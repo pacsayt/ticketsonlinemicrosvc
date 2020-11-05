@@ -1,10 +1,13 @@
 package springboot.ticketsonlinemicrosvc.ticketservice.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
+import springboot.ticketsonlinemicrosvc.common.entities.event.Events;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.TicketEntity;
 import springboot.ticketsonlinemicrosvc.ticketservice.repositories.TicketRepository;
@@ -30,6 +33,8 @@ import java.util.Optional;
 @Service
 public class TicketService
 {
+  private static final Logger LOG = LoggerFactory.getLogger( TicketService.class);
+
   @Autowired // pt++ : @PersistenceContext( type = ...)
              // PersistenceContextType.TRANSACTION - EntityManager to use the transaction persistence context
              // PersistenceContextType.EXTENDED -
@@ -50,26 +55,33 @@ public class TicketService
 
   public Ticket save( Ticket ticketToBeSaved)
   {
-    Mono<Event> eventSavedMono = eventServiceAccess.put( ticketToBeSaved.getEvent());
-
-    Event eventSaved = eventSavedMono.block();
+    Event eventSaved = eventServiceAccess.post( ticketToBeSaved.getEvent());
 
     TicketEntity ticketEntityToBeSaved = new TicketEntity( ticketToBeSaved, eventSaved.getId());
 
     TicketEntity savedTicketEntity = ticketRepository.save( ticketEntityToBeSaved);
 
-    return new Ticket( savedTicketEntity, eventSaved);
+    return new Ticket( savedTicketEntity, ticketToBeSaved.getEvent());
+  }
+
+  public void update( Ticket ticketToBeSaved)
+  {
+    eventServiceAccess.put( ticketToBeSaved.getEvent());
+
+    TicketEntity ticketEntityToBeSaved = new TicketEntity( ticketToBeSaved, ticketToBeSaved.getEvent().getId());
+
+    TicketEntity savedTicketEntity = ticketRepository.save( ticketEntityToBeSaved);
   }
 
   public List<Ticket> findAll()
   {
     List<Ticket> allTickets = new ArrayList<>();
 
-    Flux<Event> allEventFlux = eventServiceAccess.getAll();
+    Events events = eventServiceAccess.getAll();
 
     for ( TicketEntity ticketEntity: ticketRepository.findAll() )
     {
-      for ( Event event : allEventFlux.toIterable() )
+      for ( Event event : events.getEvents() )
       {
         if ( ticketEntity.getEventId().equals( event.getId()) )
         {
@@ -85,14 +97,20 @@ public class TicketService
 
   public Optional<Ticket> findById(Long iD)
   {
+    LOG.info( "TicketService::findById( " + iD + ") ++++++++++++++++++++++++++++++++++++++++++++");
+
     Optional<TicketEntity> ticketEntityFoundOptional = ticketRepository.findById( iD);
 
     if ( ticketEntityFoundOptional.isPresent() )
     {
-      Mono<Event> eventFoundMono = eventServiceAccess.getById( ticketEntityFoundOptional.get().getEventId());
+      Event eventFound = eventServiceAccess.getById( ticketEntityFoundOptional.get().getEventId());
 
-      return Optional.of( new Ticket( ticketEntityFoundOptional.get(), eventFoundMono.block()));
+      LOG.info( "TicketService::findById( " + iD + ") -> " + eventFound + " ++++++++++++++++++++++++++++++++++++++++++++");
+
+      return Optional.of( new Ticket( ticketEntityFoundOptional.get(), eventFound));
     }
+
+    LOG.info( "TicketService::findById( ) -> Optional.empty() ++++++++++++++++++++++++++++++++++++++++++++");
 
     return Optional.empty();
   }
@@ -105,8 +123,9 @@ public class TicketService
 
     for ( TicketEntity ticketEntity : ticketsFounfByEventId )
     {
-      Mono<Event> eventFoundMono = eventServiceAccess.getById( eventId);
-      Event eventFound = eventFoundMono.block();
+      Event eventFound = eventServiceAccess.getById( eventId);
+
+      LOG.info( "TicketService::findByEventId( " + eventId + ") -> " + eventFound + " ++++++++++++++++++++++++++++++++++++++++++++");
 
       allTickets.add( new Ticket( ticketEntity, eventFound));
     }
@@ -114,9 +133,9 @@ public class TicketService
     return allTickets;
   }
 
-  public void delete( Ticket ticketEntityToBeDeleted)
+  public void delete( Ticket ticketToBeDeleted)
   {
-    ticketRepository.delete( new TicketEntity( ticketEntityToBeDeleted, ticketEntityToBeDeleted.getEvent().getId()));
+    ticketRepository.delete( new TicketEntity( ticketToBeDeleted, ticketToBeDeleted.getEvent().getId()));
   }
 
   public Ticket getOne( Long iD)
@@ -125,9 +144,11 @@ public class TicketService
 
     if ( ticketEntityFoundOptional.isPresent() )
     {
-      Mono<Event> eventFoundMono = eventServiceAccess.getById( ticketEntityFoundOptional.get().getEventId());
+      Event eventFound  = eventServiceAccess.getById( ticketEntityFoundOptional.get().getEventId());
 
-      return new Ticket( ticketEntityFoundOptional.get(), eventFoundMono.block());
+      LOG.info( "TicketService::getOne( " + iD + ") -> " + eventFound + " ++++++++++++++++++++++++++++++++++++++++++++");
+
+      return new Ticket( ticketEntityFoundOptional.get(), eventFound);
     }
 
     return null;

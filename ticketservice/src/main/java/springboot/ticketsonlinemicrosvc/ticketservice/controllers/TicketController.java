@@ -1,5 +1,7 @@
 package springboot.ticketsonlinemicrosvc.ticketservice.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,12 @@ import java.util.Optional;
 @RequestMapping( path="ticket")
 public class TicketController
 {
+  private static final Logger LOG = LoggerFactory.getLogger( TicketController.class);
+
   @Autowired
   private TicketService ticketService;
 
-  @Value( "${parameter}")
+  @Value( "${parameter:default value}")
   private String parameter;
 
   @GetMapping
@@ -54,6 +58,8 @@ public class TicketController
   @GetMapping( path = "/config")
   public String getConfig()
   {
+    LOG.info( "TicketController::getConfig() parameter=" + parameter + "+++++++++++++++++++++++++++++++++++++++++++++");
+
     return parameter;
   }
 }

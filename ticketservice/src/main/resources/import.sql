@@ -1,6 +1,6 @@
 -- Hibernate support src/test
 
--- ticket (ticket_id bigint not null, seat_no integer, ticket_price integer, event_id bigint not null)
+-- ticket (ticket_id bigint not null, event_id bigint not null, seat_no integer, ticket_price integer)
 insert into ticket values( 10, 2, 100, 11);
 insert into ticket values( 11, 1, 111, 11);
 insert into ticket values( 12, 3, 112, 11);
