@@ -11,6 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  *  Configuration can be tested :
  *  http://localhost:8761/config/eventservice/default/
+ *
+ *  Start from Docker :
+ *  # pt++ : docker run -p 8761:8761 4f17dcfe110a --name kutykurutty
+ *  ...
+ *   Successfully built 4f17dcfe110a
+ *  ...
  */
 @SpringBootApplication
 public class EurekaserverappApplication
