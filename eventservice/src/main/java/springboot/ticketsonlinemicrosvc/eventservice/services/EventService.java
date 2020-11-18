@@ -1,5 +1,6 @@
 package springboot.ticketsonlinemicrosvc.eventservice.services;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import springboot.ticketsonlinemicrosvc.eventservice.repositories.EventRepositor
 import springboot.ticketsonlinemicrosvc.eventservice.restaccess.EventPlaceServiceAccess;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -76,6 +78,7 @@ public class EventService
 */
 
   // pt++ : RestTemplate version
+  @HystrixCommand( fallbackMethod = "findByIdFallback")
   public Optional<Event> findById(Long iD)
   {
     Optional<EventEntity> eventEntityOptional = eventRepository.findById(iD);
@@ -98,11 +101,18 @@ public class EventService
     return Optional.empty(); // pt++ : for test purposes ONLY
   }
 
+  public Optional<Event> findByIdFallback( Long iD)
+  {
+    LOG.error( "EventService::findByIdFallback()");
+
+    return Optional.of( new Event( iD, "findByIdFallback", Timestamp.from( Instant.now()), null));
+  }
 
   /**
    * Reactor – How to convert Flux into List, Map
    * https://grokonez.com/reactive-programming/reactor/reactor-convert-flux-into-list-map-reactive-programming
    */
+  @HystrixCommand( fallbackMethod = "findAllFallback")
   public List<Event> findAll()
   {
     List<Event> allEvents = new ArrayList<>();
@@ -127,6 +137,14 @@ public class EventService
     return allEvents;
   }
 
+  public List<Event> findAllFallback()
+  {
+    LOG.error( "EventService::findAllFallback()");
+
+    return List.of( new Event( 0L, "findAllFallback", Timestamp.from( Instant.now()), null));
+  }
+
+  @HystrixCommand( fallbackMethod = "findByNameFallback")
   public List<Event> findByName(String name)
   {
     List<EventEntity> eventEntitesFound = eventRepository.findByName( name);
@@ -135,16 +153,31 @@ public class EventService
 //    return Collections.emptyList();
   }
 
-  public List<Event> findByDate(Timestamp date)
+  public List<Event> findByNameFallback(String name)
+  {
+    LOG.error( "EventService::findByNameFallback()");
+
+    return List.of(  new Event( 0L, "findByNameFallback", Timestamp.from( Instant.now()), null));
+  }
+
+  @HystrixCommand( fallbackMethod = "findByDateFallback")
+  public List<Event> findByDate( Timestamp date)
   {
     List<EventEntity> eventEntitesFound = eventRepository.findByDate( date);
 
     return eventEntitiesToEvents( eventEntitesFound);
   }
 
-  public Optional<Event> findByNameAndDate(String name, Timestamp date)
+  public List<Event> findByDateFallback( Timestamp date)
   {
+    LOG.error( "EventService::findByDateFallback()");
 
+    return List.of(  new Event( 0L, "findByDateFallback", Timestamp.from( Instant.now()), null));
+  }
+
+  @HystrixCommand( fallbackMethod = "findByNameAndDateFallback")
+  public Optional<Event> findByNameAndDate( String name, Timestamp date)
+  {
     Optional<EventEntity> optionalEventEntityFound = eventRepository.findByNameAndDate( name, date);
 
     if ( optionalEventEntityFound.isPresent() )
@@ -157,10 +190,24 @@ public class EventService
     return Optional.empty();
   }
 
+  public Optional<Event> findByNameAndDateFallback( String name, Timestamp date)
+  {
+    LOG.error( "EventService::findByNameAndDateFallback()");
+
+    return Optional.of( new Event( 0L, "findByNameAndDateFallback", Timestamp.from( Instant.now()), null));
+  }
+
+  @HystrixCommand( fallbackMethod = "deleteFallback")
   public void delete( Event eventToBeDeleted)
   {
     eventRepository.delete( new EventEntity( eventToBeDeleted));
   }
+
+  public void deleteFallback( Event eventToBeDeleted)
+  {
+    LOG.error( "EventService::deleteFallback()");
+  }
+
 
   /**
    * pt++ : Difference between getOne and findById in Spring Data JPA?

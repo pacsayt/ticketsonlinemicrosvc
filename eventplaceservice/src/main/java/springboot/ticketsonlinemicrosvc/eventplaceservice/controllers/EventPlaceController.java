@@ -18,6 +18,9 @@ import java.util.Optional;
  * http://localhost:8011/eventplace/
  * http://localhost:8011/eventplace/11
  * http://localhost:8011/eventplace/config : prints out the parameter got from configuration server
+ *
+ * http://localhost:8011/ -> enter : https://localhost:8011/hystrix.stream
+ *
  */
 
 @RefreshScope                       // pt++ : https://spring.io/guides/gs/centralized-configuration/

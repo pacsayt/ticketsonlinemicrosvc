@@ -1,5 +1,6 @@
 package springboot.ticketsonlinemicrosvc.eventservice.controllers;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class EventController
   @Value( "${parameter:default value}")
   private String parameter;
 
+  @HystrixCommand
   @GetMapping
   public Events getAll()
   {
@@ -32,6 +34,7 @@ public class EventController
     return new Events( eventService.findAll());
   }
 
+  @HystrixCommand
   @GetMapping( path="/{eventId}", produces = "application/json")
   public Optional<Event> getById(@PathVariable Long eventId)
   {
@@ -40,6 +43,7 @@ public class EventController
     return eventService.findById( eventId);
   }
 
+  @HystrixCommand
   // <-> public ResponseEntity<Object> EventPlaceController::post( @RequestBody EventPlace eventPlace)
   @PostMapping // pt++ : POST - INSERT
   public ResponseEntity<Optional<Event>> post(@RequestBody Event event)
@@ -51,6 +55,7 @@ public class EventController
     return ResponseEntity.ok( Optional.of( savedEvent));
   }
 
+  @HystrixCommand
   @PutMapping // pt++ : PUT - update
   public ResponseEntity<Optional<Event>> put(@RequestBody Event event)
   {
@@ -61,6 +66,7 @@ public class EventController
     return ResponseEntity.ok( Optional.of( savedEvent));
   }
 
+  @HystrixCommand
   @GetMapping( path = "/config")
   public String getConfig()
   {

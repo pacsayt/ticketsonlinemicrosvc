@@ -14,7 +14,14 @@ import org.springframework.context.annotation.Bean;
  * http://localhost:8012/event
  * http://localhost:8012/event/11 12 -> null
  * *****************************************************************************************
+ * http://localhost:8012/hystrix
  *
+ * https://localhost:8012/turbine/turbine.stream
+ * https://localhost:8012/actuator/hystrix.stream
+ * https://eventservice:8012/actuator/hystrix.stream
+ *
+ * https://stackoverflow.com/questions/49792290/unable-to-connect-to-command-metric-stream-for-hystrix-dashboard-with-spring-clo
+ * *****************************************************************************************
  * Spring Boot With H2 Database
  * https://www.baeldung.com/spring-boot-h2-database
  *

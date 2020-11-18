@@ -22,6 +22,11 @@ spring:
 management:
   security:
     enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+      base-path: /
 
 eureka:
   client:

@@ -2,17 +2,13 @@ package springboot.ticketsonlinemicrosvc.bookedticketservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.repositories.BookedTicketRepository;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.restaccess.TicketServiceAccess;
 import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicket;
 import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicketEntity;
 import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
-import springboot.ticketsonlinemicrosvc.common.entities.event.EventEntity;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.Ticket;
 import springboot.ticketsonlinemicrosvc.common.entities.ticket.Tickets;
-import springboot.ticketsonlinemicrosvc.ticketservice.restaccess.EventServiceAccess;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -29,9 +25,6 @@ public class BookedTicketService
 {
   @Autowired
   private TicketServiceAccess ticketServiceAccess;
-
-  @Autowired
-  private EventServiceAccess eventServiceAccess;
 
   @Autowired
   private BookedTicketRepository bookedTicketRepository;

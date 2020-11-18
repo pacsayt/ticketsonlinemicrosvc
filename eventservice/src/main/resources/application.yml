@@ -42,6 +42,16 @@ spring:
 management:
   security:
     enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list:
+      - '*'
 
 logging:
   level:

@@ -8,3 +8,17 @@ spring:
   cloud:
     config:
       uri: http://localhost:8761/config
+
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*', hystrix.stream
+      base-path: /
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list:
+      - '*'
