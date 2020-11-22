@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.Optional;
 
 /**
+ * Zuul : http://localhost:8761/eventplaceservice/eventplace/
+ *
  * http://localhost:8011/eventplace/
  * http://localhost:8011/eventplace/11
  * http://localhost:8011/eventplace/config : prints out the parameter got from configuration server

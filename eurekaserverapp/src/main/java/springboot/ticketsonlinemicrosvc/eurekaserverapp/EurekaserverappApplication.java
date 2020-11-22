@@ -9,8 +9,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *  Eureka server :
  *  http://localhost:8761/
  *
+ * ----------------------------------------------------------------------
  *  Configuration can be tested :
  *  http://localhost:8761/config/eventservice/default/
+ *
+ * ----------------------------------------------------------------------
+ * ZUUL :
+ * http://localhost:8761/eventplaceservice/eventplace/11
+ *
+ *  ---------------------------------------------------------------------
+ *
+ *  docker run -d -p 9411:9411 openzipkin/zipkin
  *
  *  Start from Docker :
  *  # pt++ : docker run -p 8761:8761 4f17dcfe110a --name kutykurutty

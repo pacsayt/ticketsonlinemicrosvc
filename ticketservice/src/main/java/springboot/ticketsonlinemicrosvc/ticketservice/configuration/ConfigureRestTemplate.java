@@ -18,11 +18,17 @@ public class ConfigureRestTemplate
   private static final Logger LOG = LoggerFactory.getLogger( ConfigureRestTemplate.class);
 
   @Bean
-  @LoadBalanced // pt++ : this makes Eureka work ...
+  @LoadBalanced // pt++ : this makes Eureka work ... + Zipkin
   public RestTemplate restTemplate()
   {
     LOG.info( "ConfigureRestTemplate::restTemplate() ------------------------------------------------------------------");
 
     return new RestTemplate();
+  }
+
+  @Bean
+  public AlwaysSampler alwaysSampler() // pt++ : -> Zipkin
+  {
+    return new AlwaysSampler();
   }
 }

@@ -67,13 +67,11 @@
 <!--      <version>2.2.4.RELEASE</version> -->
     </dependency>
 
-      <dependency> <!-- pt++ : this mihght have compatibility issues as it uses explicit (probably way too old) version -->
-          <groupId>org.springframework.cloud</groupId>
-          <artifactId>spring-cloud-starter-feign</artifactId>
-          <version>1.4.0.RELEASE</version>
-      </dependency>
-
-
+    <dependency> <!-- pt++ : this mihght have compatibility issues as it uses explicit (probably way too old) version -->
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-feign</artifactId>
+      <version>1.4.0.RELEASE</version>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.cloud</groupId>
@@ -83,18 +81,22 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-sleuth</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-zipkin</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.kafka</groupId>
       <artifactId>spring-kafka</artifactId>
     </dependency>
+
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>

@@ -35,6 +35,22 @@ eureka:
   server:
     waitTimeInMsWhenSyncEmpty: 0    #wait time for subsequent sync
 
+zuul:
+  routes:
+    eventplaceservice:
+      url: http://localhost:8011 # pt++ : <- eventplaceservice will be routed to this address
+    eventservice:
+      url: http://localhost:8012
+    ticketservice:
+      url: http://localhost:8013
+    bookedticketservice:
+      url: http://localhost:8014
+
+# Ribbon is auto integrated with Zuul and for this exercise we are not using that.
+ribbon:
+  eureka:
+    enabled: false
+
 logging:
   file:
     name: /var/tmp/eurekaserver.log
