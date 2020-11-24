@@ -1,5 +1,6 @@
 package springboot.ticketsonlinemicrosvc.ticketservice.configuration;
 
+import brave.sampler.Sampler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -27,8 +28,8 @@ public class ConfigureRestTemplate
   }
 
   @Bean
-  public AlwaysSampler alwaysSampler() // pt++ : -> Zipkin
+  public Sampler alwaysSampler()
   {
-    return new AlwaysSampler();
+    return Sampler.ALWAYS_SAMPLE; // pt++ : AlwaysSampler does not exist in spring-cloud-sleuth-core-2.2.5.RELEASE.jar
   }
 }

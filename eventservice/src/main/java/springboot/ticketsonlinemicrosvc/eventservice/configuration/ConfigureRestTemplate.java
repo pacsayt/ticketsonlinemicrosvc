@@ -1,5 +1,6 @@
 package springboot.ticketsonlinemicrosvc.eventservice.configuration;
 
+import brave.sampler.Sampler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -8,9 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
+
 /**
  * Client Side Load Balancing with Ribbon and Spring Cloud : pt++ : better than average guides
  * https://spring.io/guides/gs/client-side-load-balancing/
+ *
+ * Spring Cloud Sleuth :
+ * https://cloud.spring.io/spring-cloud-static/spring-cloud-sleuth/1.3.0.RELEASE/multi/multi_spring-cloud-sleuth.html
  */
 @Configuration
 public class ConfigureRestTemplate
@@ -44,8 +49,8 @@ public class ConfigureRestTemplate
   }
 
   @Bean
-  public AlwaysSampler alwaysSampler() // pt++ : -> Zipkin
+  public Sampler alwaysSampler()     // pt++ : for centralized logging (Sleuth ? Zipkin)
   {
-    return new AlwaysSampler();
+    return Sampler.ALWAYS_SAMPLE; // pt++ : AlwaysSampler does not exist in spring-cloud-sleuth-core-2.2.5.RELEASE.jar
   }
 }

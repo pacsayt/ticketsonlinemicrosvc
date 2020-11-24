@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Bean;
  * *****************************************************************************************
  * http://localhost:8012/hystrix
  *
+ * http://localhost:8012/health/ -> UP (Actuator ? Hystrix ?)
+ *
  * https://localhost:8012/turbine/turbine.stream
  * https://localhost:8012/actuator/hystrix.stream
  * https://eventservice:8012/actuator/hystrix.stream
@@ -57,18 +59,11 @@ import org.springframework.context.annotation.Bean;
 @EnableEurekaClient
 @EnableHystrixDashboard
 @EnableCircuitBreaker
-@EnableFeignClients
+// @EnableFeignClients -> ConfigureFeignClients.java
 public class EventServiceApplication
 {
 	public static void main(String[] args)
 	{
 		SpringApplication.run(EventServiceApplication.class, args);
-	}
-
-	@Bean
-	public Sampler getSampler()
-	{
-		// pt++ : for centralized logging (Sleuth ? Zipkin)
-		return Sampler.ALWAYS_SAMPLE; // pt++ : https://cloud.spring.io/spring-cloud-sleuth/2.0.x/multi/multi__sampling.html
 	}
 }
