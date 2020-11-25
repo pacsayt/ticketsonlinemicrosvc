@@ -20,4 +20,5 @@ management:
 
 hystrix:
   dashboard:
-    proxy-stream-allow-list: '*'
+    proxy-stream-allow-list:
+      - '*'

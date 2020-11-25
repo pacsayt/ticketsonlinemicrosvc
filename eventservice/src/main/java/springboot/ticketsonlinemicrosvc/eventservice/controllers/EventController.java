@@ -28,7 +28,6 @@ public class EventController
   @Value( "${parameter:default value}")
   private String parameter;
 
-  // pt++ : You can switch Hystrix to use the same thread as the caller through configuration or directly in the annotation, by asking it to use a different “Isolation Strategy”.
   @HystrixCommand( fallbackMethod = "getAllFallback", commandProperties = {@HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")}) // pt++ : "works with @Component or @Service"
   @GetMapping
   public Events getAll()

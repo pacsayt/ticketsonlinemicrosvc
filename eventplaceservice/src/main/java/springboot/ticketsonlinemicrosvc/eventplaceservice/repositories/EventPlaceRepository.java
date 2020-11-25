@@ -12,48 +12,16 @@ import java.util.List;
  *
  * pt++ : Hibernate: save, persist, update, merge, saveOrUpdate
  * pt++ : https://www.baeldung.com/hibernate-save-persist-update-merge-saveorupdate
- * ---------------------------------------------------------------------------------------------------------------------
- * Spring Boot With H2 Database
- * https://www.baeldung.com/spring-boot-h2-database
- *
- * pt++ : H2 console : http://localhost:8080/h2-console/ -> JDBC URL : =jdbc:h2:mem:test
- *
- * Session :
- * Instances may exist in one of the following three states :
- * transient − A new instance of a persistent class, which is not associated with a Session
- * and has no representation in the database
- * persistent − instance has a representation in the database, an identifier value and is
- * associated with a Session.
- * detached −  the Hibernate Session is closed
-
- * Lots of Session's methods is listed :
- * https://www.tutorialspoint.com/hibernate/hibernate_sessions.htm
-
- * Session session = factory.openSession();
- * Transaction tx = null;
-
- * try {
- *   tx = session.beginTransaction();
- *   ...
- *   tx.commit();
- * }
- * catch (Exception e) {
- *   if (tx!=null) tx.rollback();
- *   e.printStackTrace();
- * }
- * finally {
- *   session.close();
- * }
  */
 @Repository
 public interface EventPlaceRepository extends JpaRepository<EventPlace, Long>
 {
-  List<EventPlace> findByNameContainingIgnoreCase(String name);
+  List<EventPlace> findByNameContainingIgnoreCase(String name); // pt++ TODO : Did neither find a NamedQuery nor an annotated query for method
 
-  List<EventPlace> findFirst2ByNameContainingIgnoreCase(String name);
+  List<EventPlace> findFirst2ByNameContainingIgnoreCase(String name); // pt++ TODO : Did neither find a NamedQuery nor an annotated query for method
   // public abstract java.util.List **.repositories.EventPlaceRepository.findFirst2ByNameContainingIgnoreCase(java.lang.String)!
 
-  List<EventPlace> findByNameContainingIgnoreCaseOrderByNameAsc(String name);
+  List<EventPlace> findByNameContainingIgnoreCaseOrderByNameAsc(String name); // pt++ TODO : Did neither find a NamedQuery nor an annotated query for method
 
   // Sort sort = new Sort(Sort.Direction.ASC, "name");
   List<EventPlace> findByNameContains(String name, Sort sort);

@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class ConfigureRestTemplate
 {
-  private static final Logger LOG = LoggerFactory.getLogger( ConfigureRestTemplate.class);
+  private static final Logger LOG = LoggerFactory.getLogger( springboot.ticketsonlinemicrosvc.ticketservice.configuration.ConfigureRestTemplate.class);
 
   @Bean
   @LoadBalanced // pt++ : this makes Eureka work ... + Zipkin
