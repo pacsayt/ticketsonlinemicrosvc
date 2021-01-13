@@ -25,7 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * ---------------------------------------------------------------------
  *
  *  Start from Docker :
- *  # pt++ : docker run -p 8761:8761 4f17dcfe110a --name kutykurutty
+ *  # pt++ : docker run -p 8761:8761 4f17dcfe110a --name eurekaserverapp
  *  ...
  *   Successfully built 4f17dcfe110a
  *  ...

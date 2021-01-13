@@ -1,0 +1,88 @@
+version: "3.7"
+
+services:
+  eurekaserverapp:
+    image: openjdk:13-jdk-alpine
+    build:
+      context: ./eurekaserverapp/target/
+    container_name: eurekaserverapp
+    ports:
+      - 8761:8761
+      - 9411:9411
+    working_dir: /opt/eurekaserverapp
+    volumes:
+      - eurekaserverapp-cfg-dir:/home/tamas/projektek/TicketsOnline/ticketsonlinecfg
+      - eurekaserverapp-log-dir:/var/tmp
+
+  eventplaceservice:
+    image: openjdk:13-jdk-alpine
+    build:
+      context: ./eventplaceservice/target/
+    ports:
+      - 8761:8761
+      - 8011:8011
+    working_dir: /opt/eventplaceservice
+    volumes:
+      - eventplaceservice-log-dir:/var/tmp
+    depends_on:
+      - eurekaserverapp
+
+  eventservice:
+    image: openjdk:13-jdk-alpine
+    build:
+      context: ./eventservice/target/
+    ports:
+      - 8761:8761
+      - 8011:8011
+      - 8012:8012
+    working_dir: /opt/eventservice
+    volumes:
+      - eventservice-log-dir:/var/tmp
+    depends_on:
+      - eurekaserverapp
+      - eventplaceservice
+
+  ticketservice:
+    image: openjdk:13-jdk-alpine
+    build:
+      context: ./ticketservice/target/
+    ports:
+      - 8761:8761
+      - 8012:8012
+      - 8013:8013
+    working_dir: /opt/ticketservice
+    volumes:
+      - ticketservice-log-dir:/var/tmp
+    depends_on:
+      - eurekaserverapp
+      - eventservice
+
+  bookedticketservice:
+    image: openjdk:13-jdk-alpine
+    build:
+      context: ./bookedticketservice/target/
+    ports:
+      - 8761:8761
+      - 8013:8013
+      - 8014:8014
+    working_dir: /opt/bookedticketservice
+    volumes:
+      - bookedticketservice-log-dir:/var/tmp
+    depends_on:
+      - eurekaserverapp
+      - ticketservice
+
+volumes:
+  eurekaserverapp-cfg-dir:
+      driver: local
+  eurekaserverapp-log-dir:
+    driver: local
+  eventplaceservice-log-dir:
+      driver: local
+  eventservice-log-dir:
+      driver: local
+  ticketservice-log-dir:
+      driver: local
+  bookedticketservice-log-dir:
+      driver: local
+

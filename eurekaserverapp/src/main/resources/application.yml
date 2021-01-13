@@ -46,7 +46,7 @@ zuul:
     bookedticketservice:
       url: http://localhost:8014
 
-# Ribbon is auto integrated with Zuul and for this exercise we are not using that.
+# Ribbon is auto integrated with Zuul (we are not using it).
 ribbon:
   eureka:
     enabled: false
