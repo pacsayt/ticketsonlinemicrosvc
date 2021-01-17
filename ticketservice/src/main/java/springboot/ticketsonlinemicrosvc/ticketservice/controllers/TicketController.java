@@ -22,6 +22,7 @@ public class TicketController
   @Autowired
   private TicketService ticketService;
 
+  // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
   @Value( "${parameter:default value}")
   private String parameter;
 

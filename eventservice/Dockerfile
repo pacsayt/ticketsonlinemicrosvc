@@ -6,4 +6,4 @@ EXPOSE 8761
 EXPOSE 9411
 COPY target/eventservice*.jar eventservice.jar
 ENV JAVA_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar /eventservice.jar" ]
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar /opt/eventservice/eventservice.jar" ]

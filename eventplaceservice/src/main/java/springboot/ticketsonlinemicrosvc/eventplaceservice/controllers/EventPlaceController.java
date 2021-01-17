@@ -30,6 +30,7 @@ import java.util.Optional;
 @RequestMapping( path="eventplace") // pt++ : root path must be specified separately path == value aliasses
 public class EventPlaceController
 {
+  // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
   @Value( "${parameter:default value}")
   private String parameter;
 

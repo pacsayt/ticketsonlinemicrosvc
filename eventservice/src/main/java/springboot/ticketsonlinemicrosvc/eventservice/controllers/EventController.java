@@ -25,6 +25,7 @@ public class EventController
   @Autowired
   private EventService eventService;
 
+  // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
   @Value( "${parameter:default value}")
   private String parameter;
 

@@ -7,4 +7,4 @@ EXPOSE 8761
 EXPOSE 9411
 COPY target/eurekaserverapp*.jar eurekaserverapp.jar
 ENV JAVA_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar ${WORKDIR}/eurekaserverapp.jar" ]
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar /opt/eurekaserverapp/eurekaserverapp.jar" ]

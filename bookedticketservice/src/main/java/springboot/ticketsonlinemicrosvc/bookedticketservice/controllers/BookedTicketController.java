@@ -15,6 +15,7 @@ import java.util.Optional;
 @RequestMapping( path="bookedticket")
 public class BookedTicketController
 {
+  // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
   @Value( "${parameter}")
   private String parameter;
 

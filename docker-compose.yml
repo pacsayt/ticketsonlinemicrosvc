@@ -2,9 +2,8 @@ version: "3.7"
 
 services:
   eurekaserverapp:
-    image: openjdk:13-jdk-alpine
-    build:
-      context: ./eurekaserverapp/target/
+#    image: pacsayt/eurekaserverapp
+    build: eurekaserverapp
     container_name: eurekaserverapp
     ports:
       - 8761:8761
@@ -15,62 +14,18 @@ services:
       - eurekaserverapp-log-dir:/var/tmp
 
   eventplaceservice:
-    image: openjdk:13-jdk-alpine
-    build:
-      context: ./eventplaceservice/target/
+#    image: pacsayt/eventplaceservice
+    build: eventplaceservice
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_URI=http://eurekaserverapp:8761/eureka
     ports:
-      - 8761:8761
       - 8011:8011
     working_dir: /opt/eventplaceservice
     volumes:
       - eventplaceservice-log-dir:/var/tmp
     depends_on:
       - eurekaserverapp
-
-  eventservice:
-    image: openjdk:13-jdk-alpine
-    build:
-      context: ./eventservice/target/
-    ports:
-      - 8761:8761
-      - 8011:8011
-      - 8012:8012
-    working_dir: /opt/eventservice
-    volumes:
-      - eventservice-log-dir:/var/tmp
-    depends_on:
-      - eurekaserverapp
-      - eventplaceservice
-
-  ticketservice:
-    image: openjdk:13-jdk-alpine
-    build:
-      context: ./ticketservice/target/
-    ports:
-      - 8761:8761
-      - 8012:8012
-      - 8013:8013
-    working_dir: /opt/ticketservice
-    volumes:
-      - ticketservice-log-dir:/var/tmp
-    depends_on:
-      - eurekaserverapp
-      - eventservice
-
-  bookedticketservice:
-    image: openjdk:13-jdk-alpine
-    build:
-      context: ./bookedticketservice/target/
-    ports:
-      - 8761:8761
-      - 8013:8013
-      - 8014:8014
-    working_dir: /opt/bookedticketservice
-    volumes:
-      - bookedticketservice-log-dir:/var/tmp
-    depends_on:
-      - eurekaserverapp
-      - ticketservice
 
 volumes:
   eurekaserverapp-cfg-dir:

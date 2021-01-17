@@ -54,7 +54,7 @@ hystrix:
 
 logging:
   level:
-    root: INFO
+    root: DEBUG
 
   file:
     name: /var/tmp/eventplaceservice.log
