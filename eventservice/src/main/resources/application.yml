@@ -45,8 +45,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
-      base-path: /
+        include: "*" #refresh, bus-refresh, beans, env
 
 hystrix:
   dashboard:
@@ -55,4 +54,10 @@ hystrix:
 
 logging:
   level:
-    springboot.ticketsonlinemicrosvc.eventservice: DEBUG
+    root: INFO
+
+  file:
+    name: /var/tmp/eventservice.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%"

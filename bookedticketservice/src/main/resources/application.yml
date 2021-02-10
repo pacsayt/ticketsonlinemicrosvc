@@ -43,8 +43,12 @@ management:
   endpoints:
     web:
       exposure:
-        include: hystrix.stream
-      base-path: /
+        include: "*" #refresh, bus-refresh, beans, env
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list:
+      - '*'
 
 logging:
   level:

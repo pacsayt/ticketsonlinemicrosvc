@@ -43,9 +43,19 @@ management:
   endpoints:
     web:
       exposure:
-        include: hystrix.stream
-      base-path: /
+        include: "*" #refresh, bus-refresh, beans, env
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list:
+      - '*'
 
 logging:
   level:
-    springboot.ticketsonlinemicrosvc.ticketservice: DEBUG
+    root: INFO
+
+  file:
+    name: /var/tmp/ticketservice.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%"
