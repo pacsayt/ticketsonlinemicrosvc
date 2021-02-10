@@ -1,0 +1,1 @@
+/home/tamas/bin/rabbitmqstart.sh

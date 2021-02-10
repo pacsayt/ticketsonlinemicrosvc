@@ -11,6 +11,21 @@ import springboot.ticketsonlinemicrosvc.common.entities.bookedticket.BookedTicke
 
 import java.util.Optional;
 
+/**
+ *  * http://localhost:8014/bookedticket/
+ * http://localhost:8014/bookedticket/11
+ *
+ * http://localhost:8014/eventplace/config : prints out the parameter got from configuration server
+ *
+ * http://localhost:8014/actuator/refresh/
+ *
+ * the configuration values are read on the client’s startup ONLY
+ * /actuator/refresh : triggers fetching them again <-> @RefreshScope
+ *
+ * http://localhost:8014/ -> enter : https://localhost:8014/hystrix.stream
+ *
+ */
+
 @RestController
 @RequestMapping( path="bookedticket")
 public class BookedTicketController
@@ -18,6 +33,9 @@ public class BookedTicketController
   // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
   @Value( "${parameter}")
   private String parameter;
+
+  @Value("${shared_parameter:Config Server is not working. Please check...}")
+  private String sharedParameter;
 
   @Autowired
   private BookedTicketService bookedTicketService;
@@ -55,6 +73,6 @@ public class BookedTicketController
   @GetMapping( path = "/config")
   public String getConfig()
   {
-    return parameter;
+    return parameter + "\n" + sharedParameter;
   }
 }

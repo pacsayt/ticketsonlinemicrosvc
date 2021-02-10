@@ -15,6 +15,7 @@ import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlaces;
  * pt++ : complicated explanation used from R Baxter's project
  * Finally, the WebClient interface has a single implementation
  * the DefaultWebClient class which we'll be working with.
+ * ^ pt++ : did NOT work with Eureka (s. below)
  *
  * Spring WebClient – GET, PUT, POST, DELETE examples
  * https://howtodoinjava.com/spring-webflux/webclient-get-post-example/

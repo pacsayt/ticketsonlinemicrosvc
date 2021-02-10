@@ -16,6 +16,23 @@ import springboot.ticketsonlinemicrosvc.eventservice.services.EventService;
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * Zuul : http://localhost:8761/eventplaceservice/eventplace/
+ *
+ * http://localhost:8012/event/
+ * http://localhost:8012/event/11
+ *
+ * http://localhost:8012/event/config : prints out the parameter got from configuration server
+ *
+ * http://localhost:8012/actuator/refresh/
+ *
+ * the configuration values are read on the client’s startup ONLY
+ * /actuator/refresh : triggers fetching them again <-> @RefreshScope
+ *
+ * http://localhost:8012/ -> enter : https://localhost:8012/hystrix.stream
+ *
+ */
+
 @RestController // pt++ currently works only in a class marked with @Component or @Service -> @Controller (+ @ResponseBody) -> @Component
 @RequestMapping( path="event")
 public class EventController
@@ -28,6 +45,9 @@ public class EventController
   // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
   @Value( "${parameter:default value}")
   private String parameter;
+
+  @Value("${shared_parameter:Config Server is not working. Please check...}")
+  private String sharedParameter;
 
   @HystrixCommand( fallbackMethod = "getAllFallback", commandProperties = {@HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")}) // pt++ : "works with @Component or @Service"
   @GetMapping
@@ -104,7 +124,7 @@ public class EventController
   @GetMapping( path = "/config")
   public String getConfig()
   {
-    LOG.info( "EventController::getConfig() " + parameter + "+++++++++++++++++++++++++++++++");
+    LOG.info( "EventController::getConfig() " + parameter + "\n" + sharedParameter );
 
     return parameter;
   }

@@ -44,8 +44,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
-      base-path: /
+        include: "*" #refresh, bus-refresh, beans, env
 
 hystrix:
   dashboard:
@@ -54,7 +53,7 @@ hystrix:
 
 logging:
   level:
-    root: DEBUG
+    root: INFO
 
   file:
     name: /var/tmp/eventplaceservice.log

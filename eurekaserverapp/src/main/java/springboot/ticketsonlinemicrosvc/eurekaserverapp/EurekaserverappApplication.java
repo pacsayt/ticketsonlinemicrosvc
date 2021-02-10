@@ -11,11 +11,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * ----------------------------------------------------------------------
  *  Configuration can be tested :
+ *  http://localhost:8761/config/eventplaceservice/default/
  *  http://localhost:8761/config/eventservice/default/
- *
+ *  http://localhost:8761/config/ticketservice/default/
+ *  http://localhost:8761/config/bookedticketservice/default/
  * ----------------------------------------------------------------------
  * ZUUL :
- * http://localhost:8761/eventplaceservice/eventplace/11
+ * http://localhost:8761/eventplaceservice/eventplace/11 ???
  *
  * ---------------------------------------------------------------------
  * ZIPKIN :

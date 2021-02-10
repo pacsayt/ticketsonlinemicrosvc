@@ -19,7 +19,13 @@ import java.util.Optional;
  *
  * http://localhost:8011/eventplace/
  * http://localhost:8011/eventplace/11
+ *
  * http://localhost:8011/eventplace/config : prints out the parameter got from configuration server
+ *
+ * http://localhost:8011/actuator/refresh/ : (type=Not Found, status=404)
+ *
+ * the configuration values are read on the client’s startup ONLY
+ * /actuator/refresh : triggers fetching them again <-> @RefreshScope
  *
  * http://localhost:8011/ -> enter : https://localhost:8011/hystrix.stream
  *
@@ -31,8 +37,11 @@ import java.util.Optional;
 public class EventPlaceController
 {
   // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
-  @Value( "${parameter:default value}")
+  @Value( "${parameter: parameter - DEFAULT value}")
   private String parameter;
+
+  @Value("${shared_parameter: sharedParameter - DEFAULT value}")
+  private String sharedParameter;
 
   @Autowired
   private EventPlaceService eventPlaceService;
@@ -113,6 +122,6 @@ public class EventPlaceController
   @RequestMapping( path = "/config")
   public String getConfig()
   {
-    return parameter;
+    return "parameter : "  + parameter + "\n sharedParameter : " + sharedParameter;
   }
 }

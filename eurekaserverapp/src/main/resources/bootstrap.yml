@@ -1,11 +1,11 @@
-management:
-  security:
-    enabled: false
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
-      base-path: /
+#management:
+#  security:
+#    enabled: false
+#  endpoints:
+#    web:
+#      exposure:
+#        include: 'config/*'
+#      base-path: /
 
 # This has no effect either :
 #spring:

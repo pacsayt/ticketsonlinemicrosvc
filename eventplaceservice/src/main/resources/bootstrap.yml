@@ -9,26 +9,17 @@ spring:
     config:
       uri: http://localhost:8761/config
 
-management:
-  security:
-    enabled: false
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-      base-path: /
-
-hystrix:
-  dashboard:
-    proxy-stream-allow-list:
-      - '*'
+#hystrix:
+#  dashboard:
+#    proxy-stream-allow-list:
+#      - '*'
       
-logging:
-  level:
-    root: DEBUG
+#logging:
+#  level:
+#    root: DEBUG
 
-  file:
-    name: /var/tmp/eventplaceservice.log
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%"
+#  file:
+#    name: /var/tmp/eventplaceservice.log
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+#    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%"

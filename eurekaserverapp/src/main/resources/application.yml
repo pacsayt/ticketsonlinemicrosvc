@@ -17,7 +17,8 @@ spring:
             enabled: false
         prefix: /config
         git:
-          uri: /home/tamas/projektek/TicketsOnline/ticketsonlinecfg # pt++ : must be in this file or else it won't work
+          uri: ${HOME}/projektek/TicketsOnline/ticketsonlinecfg # pt++ : must be in this file or else it won't work
+#          searchPaths: <subdirectory_1> <subdirectory_2> ... <subdirectory_n>
 
 management:
   security:
@@ -25,7 +26,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: hystrix.stream
+        include: config, refresh, bus-refresh, beans, env
       base-path: /
 
 eureka:

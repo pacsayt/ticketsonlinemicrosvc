@@ -26,6 +26,9 @@ public class TicketController
   @Value( "${parameter:default value}")
   private String parameter;
 
+  @Value("${shared_parameter:Config Server is not working. Please check...}")
+  private String sharedParameter;
+
   @GetMapping
   public Tickets getAll()
   {
@@ -59,8 +62,8 @@ public class TicketController
   @GetMapping( path = "/config")
   public String getConfig()
   {
-    LOG.info( "TicketController::getConfig() parameter=" + parameter + "+++++++++++++++++++++++++++++++++++++++++++++");
+    LOG.info( "TicketController::getConfig() parameter=" + parameter + "\n" + sharedParameter);
 
-    return parameter;
+    return parameter + "\n" + sharedParameter;
   }
 }
