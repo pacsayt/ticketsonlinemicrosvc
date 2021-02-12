@@ -2,13 +2,13 @@ package springboot.ticketsonlinemicrosvc.eventplaceservice.controllers;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlace;
 import springboot.ticketsonlinemicrosvc.common.entities.eventplace.EventPlaces;
+import springboot.ticketsonlinemicrosvc.eventplaceservice.configuration.EventPlaceConfiguration;
 import springboot.ticketsonlinemicrosvc.eventplaceservice.services.EventPlaceService;
 
 import java.util.Collections;
@@ -17,6 +17,8 @@ import java.util.Optional;
 /**
  * Zuul : http://localhost:8761/eventplaceservice/eventplace/
  *
+ * callEndpoints.sh :
+ * ~~~~~~~~~~~~~~~~~~
  * http://localhost:8011/eventplace/
  * http://localhost:8011/eventplace/11
  *
@@ -36,12 +38,15 @@ import java.util.Optional;
 @RequestMapping( path="eventplace") // pt++ : root path must be specified separately path == value aliasses
 public class EventPlaceController
 {
-  // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
-  @Value( "${parameter: parameter - DEFAULT value}")
-  private String parameter;
-
-  @Value("${shared_parameter: sharedParameter - DEFAULT value}")
-  private String sharedParameter;
+//  // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
+//  @Value( "${parameter: parameter - DEFAULT value}")
+//  private String parameter;
+//
+//  @Value("${shared_parameter: sharedParameter - DEFAULT value}")
+//  private String sharedParameter;
+//
+  @Autowired
+  private EventPlaceConfiguration eventPlaceConfiguration;
 
   @Autowired
   private EventPlaceService eventPlaceService;
@@ -62,16 +67,12 @@ public class EventPlaceController
   @HystrixCommand(fallbackMethod = "getByIdFallback")
   public EventPlace getById(@PathVariable Long eventPlaceId)
   {
-    EventPlace eventPlace = eventPlaceService.findById( eventPlaceId).orElseGet( () -> new EventPlace( -1L, "", -1));
-
-    return eventPlace;
+    return eventPlaceService.findById( eventPlaceId).orElseGet( () -> new EventPlace( -1L, "", -1));
   }
 
   public EventPlace getByIdFallback( @PathVariable Long eventPlaceId)
   {
-    EventPlace eventPlace = eventPlaceService.findById( eventPlaceId).orElseGet( () -> new EventPlace( -1L, "", -1));
-
-    return eventPlace;
+    return eventPlaceService.findById( eventPlaceId).orElseGet( () -> new EventPlace( -1L, "", -1));
   }
 
   @PostMapping() // pt++ : POST - INSERT
@@ -122,6 +123,6 @@ public class EventPlaceController
   @RequestMapping( path = "/config")
   public String getConfig()
   {
-    return "parameter : "  + parameter + "\n sharedParameter : " + sharedParameter;
+    return "parameter : "  + eventPlaceConfiguration.getParameter() + "\n sharedParameter : " + eventPlaceConfiguration.getSharedParameter();
   }
 }
