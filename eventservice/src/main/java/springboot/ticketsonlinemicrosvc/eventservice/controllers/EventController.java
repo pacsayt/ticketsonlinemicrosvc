@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ticketsonlinemicrosvc.common.entities.event.Event;
@@ -33,6 +34,7 @@ import java.util.Optional;
  *
  */
 
+@RefreshScope   // https://spring.io/guides/gs/centralized-configuration/
 @RestController // pt++ currently works only in a class marked with @Component or @Service -> @Controller (+ @ResponseBody) -> @Component
 @RequestMapping( path="event")
 public class EventController
@@ -96,7 +98,6 @@ public class EventController
   public ResponseEntity<Optional<Event>> postFallback(@RequestBody Event event)
   {
     LOG.info( "EventController::postFallback( " + event + ") +++++++++++++++++++++++++++++++");
-
 
     return ResponseEntity.of( Optional.empty());
   }

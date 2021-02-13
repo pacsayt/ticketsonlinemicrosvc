@@ -2,6 +2,7 @@ package springboot.ticketsonlinemicrosvc.bookedticketservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ticketsonlinemicrosvc.bookedticketservice.services.BookedTicketService;
@@ -26,6 +27,7 @@ import java.util.Optional;
  *
  */
 
+@RefreshScope
 @RestController
 @RequestMapping( path="bookedticket")
 public class BookedTicketController

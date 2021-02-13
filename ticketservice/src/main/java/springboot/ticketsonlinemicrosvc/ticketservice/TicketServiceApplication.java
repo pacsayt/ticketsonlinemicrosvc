@@ -55,11 +55,4 @@ public class TicketServiceApplication
   {
     SpringApplication.run(TicketServiceApplication.class, args);
   }
-
-  @Bean
-  public Sampler getSampler()
-  {
-    // pt++ : for centralized logging (Sleuth ? Zipkin)
-    return Sampler.ALWAYS_SAMPLE; // pt++ : https://cloud.spring.io/spring-cloud-sleuth/2.0.x/multi/multi__sampling.html
-  }
 }

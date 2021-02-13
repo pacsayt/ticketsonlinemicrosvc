@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * Spring Cloud Config Refresh Strategies
+ * https://soshace.com/spring-cloud-config-refresh-strategies/
+ *
  * http://localhost:8013/actuator/refresh/
  * the configuration values are read on the client’s startup ONLY
  * /actuator/refresh : triggers fetching them again <-> @RefreshScope

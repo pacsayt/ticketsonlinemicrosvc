@@ -31,6 +31,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *  ...
  *   Successfully built 4f17dcfe110a
  *  ...
+ * ---------------------------------------------------------------------
+ *  Spring Cloud Config Refresh Strategies
+ *  https://soshace.com/spring-cloud-config-refresh-strategies/
+ *
+ * ---------------------------------------------------------------------
  */
 @SpringBootApplication
 public class EurekaserverappApplication

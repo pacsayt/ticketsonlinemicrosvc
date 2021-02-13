@@ -30,6 +30,8 @@ public class ConfigureRestTemplate
   @Bean
   public Sampler alwaysSampler()
   {
-    return Sampler.ALWAYS_SAMPLE; // pt++ : AlwaysSampler does not exist in spring-cloud-sleuth-core-2.2.5.RELEASE.jar
+    // pt++ : AlwaysSampler does not exist in spring-cloud-sleuth-core-2.2.5.RELEASE.jar
+    // pt++ : for centralized logging (Sleuth ? Zipkin)
+    return Sampler.ALWAYS_SAMPLE;
   }
 }

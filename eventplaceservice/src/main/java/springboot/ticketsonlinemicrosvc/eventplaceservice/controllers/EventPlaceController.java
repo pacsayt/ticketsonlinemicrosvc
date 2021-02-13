@@ -33,7 +33,8 @@ import java.util.Optional;
  *
  */
 
-@RefreshScope                       // pt++ : https://spring.io/guides/gs/centralized-configuration/
+@RefreshScope                       // pt++ : not needed for @ConfigurationProperties
+                                    // https://spring.io/guides/gs/centralized-configuration/
 @RestController                     // pt++ : you cannot specify root path here (it seems)
 @RequestMapping( path="eventplace") // pt++ : root path must be specified separately path == value aliasses
 public class EventPlaceController
