@@ -1,9 +1,11 @@
 package springboot.ticketsonlinemicrosvc.bookedticketservice.configuration;
 
+import brave.sampler.Sampler;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
+// import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -26,9 +28,18 @@ public class ConfigureRestTemplate
     return new RestTemplate();
   }
 
+//  @Bean
+//  public AlwaysSampler alwaysSampler() // pt++ : -> Zipkin
+//  {
+//    return new AlwaysSampler();
+//  }
+
   @Bean
-  public AlwaysSampler alwaysSampler() // pt++ : -> Zipkin
+  public Sampler alwaysSampler()
   {
-    return new AlwaysSampler();
+    // pt++ : AlwaysSampler does not exist in spring-cloud-sleuth-core-2.2.5.RELEASE.jar
+    // pt++ : for centralized logging (Sleuth ? Zipkin)
+    return Sampler.ALWAYS_SAMPLE;
   }
+
 }
