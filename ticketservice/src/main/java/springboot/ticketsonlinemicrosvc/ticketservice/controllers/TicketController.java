@@ -24,13 +24,6 @@ public class TicketController
   @Autowired
   private TicketService ticketService;
 
-  // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
-  @Value( "${parameter:default value}")
-  private String parameter;
-
-  @Value("${shared_parameter:Config Server is not working. Please check...}")
-  private String sharedParameter;
-
   @GetMapping
   public Tickets getAll()
   {
@@ -59,13 +52,5 @@ public class TicketController
     Ticket ticketUpdated = ticketService.save( ticket);
 
     return ResponseEntity.ok( Optional.of( ticketUpdated));
-  }
-
-  @GetMapping( path = "/config")
-  public String getConfig()
-  {
-    LOG.info( "TicketController::getConfig() parameter=" + parameter + "\n" + sharedParameter);
-
-    return parameter + "\n" + sharedParameter;
   }
 }

@@ -45,10 +45,10 @@ public class EventController
   private EventService eventService;
 
   // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
-  @Value( "${parameter:default value}")
+  @Value( "${parameter:parameter - DEFAULT value}")
   private String parameter;
 
-  @Value("${shared_parameter:Config Server is not working. Please check...}")
+  @Value("${shared_parameter:sharedParameter - DEFAULT value}")
   private String sharedParameter;
 
   @HystrixCommand( fallbackMethod = "getAllFallback", commandProperties = {@HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")}) // pt++ : "works with @Component or @Service"
@@ -127,7 +127,7 @@ public class EventController
   {
     LOG.info( "EventController::getConfig() " + parameter + "\n" + sharedParameter );
 
-    return parameter;
+    return "parameter : "  + parameter + "\n sharedParameter : " + sharedParameter;
   }
 
   public String getConfigFallback()

@@ -1,8 +1,11 @@
 package springboot.ticketsonlinemicrosvc.ticketservice.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,13 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RefreshScope
 @RestController
-// pt++ : ??? @RequestMapping( path="configuration")
+@RequestMapping( path="config")
 public class ConfigurationController
 {
-  @Value("${parameter:Config Server is not working. Please check...}")
+  private static final Logger LOG = LoggerFactory.getLogger( ConfigurationController.class);
+
+  // pt++ : uses config file named <spring.application.name>-<env>.properties/yml
+  @Value( "${parameter:parameter - DEFAULT value}")
   private String parameter;
 
-  @Value("${shared_parameter:Config Server is not working. Please check...}")
+  @Value("${shared_parameter:sharedParameter - DEFAULT value}")
   private String sharedParameter;
 
   @GetMapping("parameter")
@@ -35,5 +41,13 @@ public class ConfigurationController
   public String getSharedParameter()
   {
     return sharedParameter;
+  }
+
+  @GetMapping()
+  public String getConfig()
+  {
+    LOG.info( "ConfigurationController::getConfig() parameter=" + parameter + "\n" + sharedParameter);
+
+    return "parameter : "  + parameter + "\n sharedParameter : " + sharedParameter;
   }
 }

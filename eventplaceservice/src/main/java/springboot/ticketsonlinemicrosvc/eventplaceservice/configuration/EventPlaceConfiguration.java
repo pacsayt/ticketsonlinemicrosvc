@@ -35,9 +35,9 @@ public class EventPlaceConfiguration
     return parameter;
   }
 
-  public void setParameter(String parameter)
+  public void setParameter(String iniParameter)
   {
-    this.parameter = parameter;
+    parameter = iniParameter;
   }
 
   public String getSharedParameter()
@@ -45,8 +45,8 @@ public class EventPlaceConfiguration
     return sharedParameter;
   }
 
-  public void setSharedParameter(String sharedParameter)
+  public void setSharedParameter(String iniSharedParameter)
   {
-    this.sharedParameter = sharedParameter;
+    sharedParameter = iniSharedParameter;
   }
 }

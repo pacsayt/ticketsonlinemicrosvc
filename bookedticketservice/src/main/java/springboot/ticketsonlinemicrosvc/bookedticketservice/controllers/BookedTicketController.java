@@ -75,6 +75,6 @@ public class BookedTicketController
   @GetMapping( path = "/config")
   public String getConfig()
   {
-    return parameter + "\n" + sharedParameter;
+    return "parameter : "  + parameter + "\n sharedParameter : " + sharedParameter;
   }
 }
